@@ -1,0 +1,14 @@
+{
+  "name": "luopan",
+  "description": "旅游行程规划 skill 插件(marketplace 形式分发)",
+  "owner": {
+    "name": "saudademjj",
+    "url": "https://github.com/saudademjj"
+  },
+  "plugins": [
+    {
+      "name": "travel-planner",
+      "source": "."
+    }
+  ]
+}

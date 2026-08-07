@@ -15,7 +15,14 @@
 
 ### 方式一:插件安装(推荐)
 
-在支持插件系统的客户端中安装 `saudademjj/luopan`;本地安装可将本仓库路径加入插件的 skills 目录。
+在支持插件系统的客户端终端中执行两步:
+
+```bash
+plugin marketplace add saudademjj/luopan
+plugin install travel-planner
+```
+
+本地开发调试可用本地路径:`plugin marketplace add /path/to/luopan`,然后 `plugin install travel-planner`。
 
 ### 方式二:手动复制
 

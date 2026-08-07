@@ -2,8 +2,10 @@
   "name": "travel-planner",
   "version": "1.0.0",
   "description": "旅游行程规划 skill:联网调研、来源可追溯、真人裁判迭代的 16 条排程规则、输出前自检。",
-  "author": "saudademjj",
+  "author": {
+    "name": "saudademjj",
+    "url": "https://github.com/saudademjj"
+  },
   "license": "MIT",
-  "repository": "https://github.com/saudademjj/luopan",
-  "skills": ["travel-planner"]
+  "repository": "https://github.com/saudademjj/luopan"
 }
