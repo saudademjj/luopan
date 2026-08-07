@@ -22,6 +22,7 @@
     --card: #ffffff;
     --ink: #050505;
     --muted: #71717a;
+    --muted-strong: #56585f;
     --faint: #a1a1aa;
     --accent: #3b82f6;
     --accent-strong: #1d4ed8;
@@ -40,9 +41,10 @@
       --card: #121212;
       --ink: #f8f9fa;
       --muted: #a1a1aa;
+      --muted-strong: #a1a1aa;
       --faint: #6b7280;
       --accent: #60a5fa;
-      --accent-strong: #3b82f6;
+      --accent-strong: #60a5fa;
       --accent-ink: #0a0a0a;
       --accent-soft: #1e293b;
       --accent-soft-ink: #bfdbfe;
@@ -108,9 +110,9 @@
   }
   .btn:active { transform: scale(.97); }
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .btn-primary { background: var(--accent); color: #ffffff; }
+  .btn-primary { background: var(--accent-strong); color: var(--accent-ink); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .btn-ghost { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
+  .btn-ghost { border: 1px solid var(--accent-strong); color: var(--accent-strong); background: transparent; }
   .btn-ghost:hover { background: var(--accent-soft); transform: translateY(-2px); }
 
   /* 项目状态徽章:hero 之下,独立一行 */
@@ -126,7 +128,7 @@
     margin-bottom: 6px;
   }
   .lead { color: var(--muted); font-size: 15px; margin-bottom: 32px; max-width: 62ch; }
-  .lead a { color: var(--accent); }
+  .lead a { color: var(--accent-strong); }
 
   /* 特性:bento 混合格。01 深蓝实底、06 浅蓝 tint,其余卡片底 */
   .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
@@ -144,7 +146,7 @@
     font-size: 12.5px;
     font-weight: 700;
     letter-spacing: .14em;
-    color: var(--accent);
+    color: var(--accent-strong);
     display: block;
     margin-bottom: 10px;
   }
@@ -152,10 +154,10 @@
   .card p { font-size: 14.5px; color: var(--muted); max-width: 56ch; }
   .card p b { color: var(--ink); font-weight: 500; }
   .card-solid { background: var(--accent-strong); border-color: var(--accent-strong); }
-  .card-solid .idx, .card-solid h3, .card-solid p, .card-solid p b { color: #ffffff; }
-  .card-solid .idx { color: rgba(255, 255, 255, .75); }
+  .card-solid .idx, .card-solid h3, .card-solid p, .card-solid p b { color: var(--accent-ink); }
   .card-tint { background: var(--accent-soft); border-color: var(--accent-soft); box-shadow: none; }
   .card-tint .idx { color: var(--accent-strong); }
+  .card-tint p { color: var(--muted-strong); }
   .span-3 { grid-column: span 3; }
   .span-2 { grid-column: span 2; }
   .span-6 { grid-column: span 6; }
@@ -175,8 +177,8 @@
     position: absolute; left: 0; top: 13px;
     width: 32px; height: 32px;
     border-radius: 999px;
-    background: var(--accent);
-    color: #ffffff;
+    background: var(--accent-strong);
+    color: var(--accent-ink);
     display: flex; align-items: center; justify-content: center;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 700; font-size: 13px;
@@ -202,9 +204,9 @@
   .usage li { margin: 10px 0 10px 20px; color: var(--muted); font-size: 15px; }
   .usage li code { color: var(--ink); }
 
-  footer { text-align: center; color: var(--faint); font-size: 13px; padding: 48px 0 64px; }
-  footer a { color: var(--faint); text-decoration: none; }
-  footer a:hover { color: var(--accent); }
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 48px 0 64px; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent-strong); }
 
   @media (max-width: 860px) {
     .span-3, .span-2, .span-6 { grid-column: span 6; }
@@ -279,6 +281,7 @@
 
 <section>
   <div class="wrap">
+    <!-- TODO: 真实行程照片(banner, 横版 3:1, 冷色调, 建议 ≥1600×530)。配一张真实的旅行照片(如伊犁或苏州实拍),与"真人裁判迭代"叙述呼应。 -->
     <h2>迭代记录</h2>
     <p class="lead">这些规则不是 skill 自动总结的,是每版行程排好后由作者本人对照真实需求挑错,错处写回规则。完整记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
   </div>
@@ -306,6 +309,7 @@
       <li>「伊犁自驾 9 天,5 人,从乌鲁木齐出发」</li>
     </ul>
     <blockquote>第一步先收集需求(预算必问),确认后才联网调研、排行程。</blockquote>
+    <!-- TODO: 输出示例的配套照片(竖版或方图, 冷色调, 建议 ≥800×600)。真实行程实拍最佳;当前示例仅文字链接。 -->
     <p class="lead">输出示例:<a href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md">伊犁 10 天自驾环线(含独库公路北段)</a>,含规则自检表和数据来源索引。</p>
   </div>
 </section>
