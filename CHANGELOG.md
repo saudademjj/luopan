@@ -8,6 +8,8 @@ All notable changes to luopan are recorded here. Versions follow SemVer.
 
 - Landing page: WCAG AA contrast fixes for buttons, links, index labels and tint cards, in light and dark themes
 - Search discoverability: bilingual repo description, homepage link, 10 topics, JSON-LD structured data on the landing page, richer marketplace description
+- Code of conduct replaced with the standard Contributor Covenant v2.1 text
+- English README wording tightened
 
 ### Added
 

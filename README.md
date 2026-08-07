@@ -4,15 +4,15 @@
 [![Version](https://img.shields.io/github/v/tag/saudademjj/luopan?label=version)](https://github.com/saudademjj/luopan)
 [![Docs](https://img.shields.io/badge/docs-online-8A2BE2)](https://saudade.me/luopan/)
 
-A travel itinerary planning skill. It confirms budget and scope before scheduling, attaches sources to factual data, and runs a self-check before delivery.
+A travel itinerary planning skill. Nothing gets scheduled until budget and scope are confirmed. Factual data carries its source and query date, and a self-check runs before delivery.
 
 ## Features
 
 - Budget gate: no itinerary draft is produced until the budget is confirmed. Until then, the skill only asks clarifying questions
-- Scope red line: the itinerary covers only the stated destination. If a ring route crosses the boundary, the reason is stated and a strict alternative is offered for you to choose
-- Source hierarchy: tickets, opening hours and similar factual data prefer official channels. Self-media and informal rankings count only as leads and are labeled "needs official confirmation". Every datum carries its source and query date
+- Scope red line: the itinerary covers only the stated destination. If a ring route crosses the boundary, the reason is stated and a strict alternative is offered
+- Source hierarchy: tickets, opening hours and similar factual data prefer official channels. Self-media and informal rankings count only as leads and are labeled "needs official confirmation". Every data point carries its source and query date
 - Workload by scale: beyond viewing time, buffer is added for queues, transit, meals and photos; top-tier parks get a full day; self-drive hours count into the day's load
-- Self-check before delivery: rules are re-read before final writing and each one is filled into a self-check table with evidence. Long itineraries drift; this is the safety net
+- Self-check before delivery: rules are re-read before final writing and each one is filled into a self-check table with evidence, because long itineraries drift
 - Output includes: day-by-day schedule, budget estimate (economy and comfort tiers), transport and accommodation suggestions, attractions and food lists (with pitfalls), a pre-trip confirmation checklist, and a data source index
 
 ## Install
@@ -44,7 +44,7 @@ The first step is requirement gathering (budget is mandatory). Research and sche
 
 ## Iteration log
 
-The rules were not auto-summarized by the skill. After each itinerary round, the author compared the output against real needs and wrote the mismatches back into the rules. Full record: [ITERATIONS.md](ITERATIONS.md).
+The rules were written by hand, not auto-summarized. After each itinerary round, the author compared the output against real needs and wrote the mismatches back into the rules. Full record: [ITERATIONS.md](ITERATIONS.md).
 
 ## Data freshness
 
