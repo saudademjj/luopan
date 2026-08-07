@@ -14,6 +14,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
+  /* 纯实色主题:无纹理、无渐变、无装饰动画。
+     调色:暖纸底 + 赭石 accent + 墨色文字,贴合"罗盘"这一传统器物的意象。 */
   :root {
     --bg: #f6f1e9;
     --card: #fdfaf4;
@@ -21,11 +23,13 @@
     --muted: #6f6559;
     --faint: #9c9183;
     --accent: #a84e22;
+    --accent-ink: #ffffff;
     --accent-soft: #f0dfd0;
+    --accent-soft-ink: #4a2a16;
     --line: #e6ddd0;
     --code-bg: #efe8dc;
-    --radius-lg: 20px;
-    --radius-md: 14px;
+    /* 圆角规则:卡片 16px,内嵌元素 8px,按钮和圆点 pill */
+    --radius-lg: 16px;
     --radius-sm: 8px;
     --shadow: 0 1px 2px rgba(90, 60, 30, .06), 0 8px 24px -12px rgba(90, 60, 30, .18);
   }
@@ -37,7 +41,9 @@
       --muted: #a3968a;
       --faint: #7d7164;
       --accent: #e09160;
+      --accent-ink: #1d1a17;
       --accent-soft: #38291e;
+      --accent-soft-ink: #e7c3a8;
       --line: #37312a;
       --code-bg: #2e2822;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
@@ -50,7 +56,9 @@
     --muted: #a3968a;
     --faint: #7d7164;
     --accent: #e09160;
+    --accent-ink: #1d1a17;
     --accent-soft: #38291e;
+    --accent-soft-ink: #e7c3a8;
     --line: #37312a;
     --code-bg: #2e2822;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
@@ -65,28 +73,15 @@
     line-height: 1.75;
     -webkit-font-smoothing: antialiased;
   }
-  /* 细颗粒纹理:给纯色背景一点纸面质感 */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-  .wrap { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
 
-  header.hero { padding: 96px 0 64px; text-align: center; }
-  .compass-mark {
-    width: 64px; height: 64px; margin: 0 auto 24px;
-    color: var(--accent);
-    animation: spin-in 0.9s cubic-bezier(.2, .8, .2, 1) both;
-  }
-  @keyframes spin-in { from { transform: rotate(-120deg) scale(.6); opacity: 0; } to { transform: rotate(0) scale(1); opacity: 1; } }
+  /* hero:品牌声明,居中保留(manifesto 型) */
+  header.hero { padding: 84px 0 44px; text-align: center; }
+  .compass-mark { width: 60px; height: 60px; margin: 0 auto 22px; color: var(--accent); }
   .hero h1 {
     font-family: "Noto Serif SC", "Songti SC", serif;
     font-weight: 900;
-    font-size: clamp(34px, 6vw, 56px);
+    font-size: clamp(34px, 6vw, 54px);
     letter-spacing: .04em;
     line-height: 1.25;
   }
@@ -94,15 +89,13 @@
     color: var(--muted);
     font-size: 16px;
     font-weight: 300;
-    margin: 20px auto 0;
-    max-width: 58ch;
+    margin: 18px auto 0;
+    max-width: 52ch;
   }
-  .hero .badges { margin-top: 28px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-  .hero .badges img { height: 20px; }
-  .hero-actions { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .hero-actions { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .btn {
     display: inline-block;
-    padding: 12px 28px;
+    padding: 11px 26px;
     border-radius: 999px;
     font-weight: 500;
     font-size: 15px;
@@ -112,36 +105,39 @@
   }
   .btn:active { transform: scale(.97); }
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .btn-ghost { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
   .btn-ghost:hover { background: var(--accent-soft); transform: translateY(-2px); }
+
+  /* 项目状态徽章:hero 之下,独立一行 */
+  .meta-strip { padding: 8px 0 56px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .meta-strip img { height: 20px; }
 
   section { padding: 56px 0 72px; }
   section h2 {
     font-family: "Noto Serif SC", "Songti SC", serif;
     font-weight: 700;
-    font-size: 28px;
+    font-size: 27px;
     letter-spacing: .02em;
     margin-bottom: 6px;
   }
   .lead { color: var(--muted); font-size: 15px; margin-bottom: 32px; max-width: 62ch; }
   .lead a { color: var(--accent); }
 
-  /* 特性区:bento 式混合尺寸,不用三等宽列 */
+  /* 特性:bento 混合格。01 实色 accent 底、06 浅 accent 底,其余卡片底 */
   .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
   .card {
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: 26px 28px;
+    padding: 24px 26px;
     box-shadow: var(--shadow);
     transition: transform .25s ease, box-shadow .25s ease;
   }
   .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(90, 60, 30, .08), 0 18px 36px -16px rgba(90, 60, 30, .24); }
   .card .idx {
     font-family: "Noto Serif SC", serif;
-    color: var(--accent);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: .12em;
@@ -151,37 +147,49 @@
   .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
   .card p { font-size: 14.5px; color: var(--muted); max-width: 56ch; }
   .card p b { color: var(--ink); font-weight: 500; }
+  .card-solid { background: var(--accent); border-color: var(--accent); }
+  .card-solid .idx, .card-solid h3, .card-solid p, .card-solid p b { color: var(--accent-ink); }
+  .card-tint { background: var(--accent-soft); border-color: var(--accent-soft); box-shadow: none; }
+  .card-tint .idx { color: var(--accent); }
   .span-3 { grid-column: span 3; }
   .span-2 { grid-column: span 2; }
   .span-6 { grid-column: span 6; }
 
-  /* 规则表 */
-  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
-  th, td { text-align: left; padding: 13px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--faint); font-weight: 500; white-space: nowrap; width: 148px; }
-  tr:hover td { background: var(--accent-soft); }
-  td a { color: var(--accent); }
+  /* 规则:引语墙,不用表格 */
+  .quote-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 0 44px; }
+  .quote-row { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .quote-row .q {
+    font-size: 15.5px;
+    font-weight: 500;
+    line-height: 1.7;
+    max-width: 46ch;
+  }
+  .quote-row .who {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    letter-spacing: .1em;
+    color: var(--faint);
+  }
+  .quote-row .who::before { content: "→ "; }
 
-  /* 安装步骤 */
+  /* 安装步骤:数字圆点 + 行,无卡片 */
   .steps { counter-reset: step; list-style: none; max-width: 640px; }
   .steps li {
     counter-increment: step;
     position: relative;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: 18px 22px 18px 62px;
-    margin-bottom: 12px;
+    padding: 14px 0 14px 56px;
     font-size: 15px;
-    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--line);
   }
+  .steps li:last-child { border-bottom: none; }
   .steps li::before {
     content: counter(step);
-    position: absolute; left: 18px; top: 17px;
-    width: 28px; height: 28px;
-    border-radius: 50%;
+    position: absolute; left: 0; top: 13px;
+    width: 32px; height: 32px;
+    border-radius: 999px;
     background: var(--accent);
-    color: #fff;
+    color: var(--accent-ink);
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 13px;
   }
@@ -195,6 +203,7 @@
   blockquote {
     border-left: 3px solid var(--accent);
     background: var(--accent-soft);
+    color: var(--accent-soft-ink);
     padding: 14px 20px;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     margin: 20px 0;
@@ -211,13 +220,12 @@
 
   @media (max-width: 860px) {
     .span-3, .span-2, .span-6 { grid-column: span 6; }
+    .quote-wall { grid-template-columns: 1fr; }
     section { padding: 40px 0 56px; }
   }
   @media (max-width: 600px) {
-    .hero { padding: 64px 0 44px; }
+    .hero { padding: 64px 0 32px; }
     .hero h1 { font-size: 32px; }
-    th { display: none; }
-    td { display: block; border: none; padding: 8px 0; }
   }
 </style>
 </head>
@@ -231,13 +239,7 @@
       <path d="M32 8v48M6 32h52" stroke-opacity=".35"/>
     </svg>
     <h1>luopan(罗盘)</h1>
-    <p class="sub">一款旅游行程规划 skill。排程规则按 16 条整理(R1-R13 加 3 条红线),每条都来自一次真实的反馈:先排一版行程,再请熟悉当地的人挑错,把错处写回规则。</p>
-    <div class="badges">
-      <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT license">
-      <img src="https://img.shields.io/github/v/tag/saudademjj/luopan?label=version" alt="version">
-      <img src="https://img.shields.io/badge/rules-16-blue" alt="16 rules">
-      <img src="https://img.shields.io/badge/tested-6%20cities-brightgreen" alt="tested in 6 cities">
-    </div>
+    <p class="sub">一款旅游行程规划 skill。16 条排程规则,每条来自一次真实反馈。</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#install">两步安装</a>
       <a class="btn btn-ghost" href="https://github.com/saudademjj/luopan">GitHub 仓库</a>
@@ -245,15 +247,22 @@
   </div>
 </header>
 
+<div class="meta-strip wrap">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT license">
+  <img src="https://img.shields.io/github/v/tag/saudademjj/luopan?label=version" alt="version">
+  <img src="https://img.shields.io/badge/rules-16-blue" alt="16 rules">
+  <img src="https://img.shields.io/badge/tested-6%20cities-brightgreen" alt="tested in 6 cities">
+</div>
+
 <section>
   <div class="wrap">
     <h2>特性</h2>
     <p class="lead">试过的城市:南京(3 轮)、苏州、杭州、北京(2 轮)、伊犁自驾(2 轮)。</p>
     <div class="bento">
-      <div class="card span-3">
+      <div class="card card-solid span-3">
         <span class="idx">01</span>
         <h3>必问预算</h3>
-        <p>预算没确认前,只输出问题清单,<b>不出行程草稿</b>。</p>
+        <p>预算没确认前,只输出问题清单,不出行程草稿。</p>
       </div>
       <div class="card span-3">
         <span class="idx">02</span>
@@ -275,7 +284,7 @@
         <h3>输出前自检</h3>
         <p>交付前重读规则,逐条填自检表(带证据)。长行程里规则容易走样,这一步是兜底。伊犁 10 天测试里抓出过一次排期违规。</p>
       </div>
-      <div class="card span-6">
+      <div class="card card-tint span-6">
         <span class="idx">06</span>
         <h3>输出包含</h3>
         <p>逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点和美食清单(含避雷)、二次确认清单、数据来源索引。</p>
@@ -287,17 +296,41 @@
 <section>
   <div class="wrap">
     <h2>规则怎么来的</h2>
-    <p class="lead">每条规则对应一次真实的反馈。完整的迭代记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
-    <table>
-      <tr><th>范围</th><td>「我只说了南京游,为什么要安排扬州镇江」</td></tr>
-      <tr><th>优先级分级</th><td>「牛首山到底排前百分之多少,台城不是热门景点」</td></tr>
-      <tr><th>顶流园区独占一天</th><td>「红山动物园最起码得一天,得到晚上」</td></tr>
-      <tr><th>时间缓冲</th><td>「估算浏览时间再加 1-2 小时,要排队、交通、吃饭、拍照」</td></tr>
-      <tr><th>高商业化旅游街避雷</th><td>「山塘街这种商业化非常严重的地方,吃的全国统一」</td></tr>
-      <tr><th>全局去重</th><td>「晚上去了两次双塔市集+山塘街」</td></tr>
-      <tr><th>主观体验类可选化</th><td>「印象西湖、游船这种要让游客决定要不要」</td></tr>
-      <tr><th>来源分级</th><td>「搜狐美食榜是野榜,自媒体不能全信」</td></tr>
-    </table>
+    <p class="lead">先排一版行程,再请熟悉当地的人挑错,把错处写回规则。完整的迭代记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
+    <div class="quote-wall">
+      <div class="quote-row">
+        <p class="q">「我只说了南京游,为什么要安排扬州镇江」</p>
+        <span class="who">范围</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「牛首山到底排前百分之多少,台城不是热门景点」</p>
+        <span class="who">优先级分级</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「红山动物园最起码得一天,得到晚上」</p>
+        <span class="who">顶流园区独占一天</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「估算浏览时间再加 1-2 小时,要排队、交通、吃饭、拍照」</p>
+        <span class="who">时间缓冲</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「山塘街这种商业化非常严重的地方,吃的全国统一」</p>
+        <span class="who">高商业化旅游街避雷</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「晚上去了两次双塔市集+山塘街」</p>
+        <span class="who">全局去重</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「印象西湖、游船这种要让游客决定要不要」</p>
+        <span class="who">主观体验类可选化</span>
+      </div>
+      <div class="quote-row">
+        <p class="q">「搜狐美食榜是野榜,自媒体不能全信」</p>
+        <span class="who">来源分级</span>
+      </div>
+    </div>
   </div>
 </section>
 
