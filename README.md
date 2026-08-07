@@ -4,55 +4,59 @@
 [![Version](https://img.shields.io/github/v/tag/saudademjj/luopan?label=version)](https://github.com/saudademjj/luopan)
 [![Docs](https://img.shields.io/badge/docs-online-8A2BE2)](https://saudade.me/luopan/)
 
-一款旅游行程规划 skill。排程前先问清预算和范围,事实数据带来源和查询日期,交付前逐条自检。
+A travel itinerary planning skill. It confirms budget and scope before scheduling, attaches sources to factual data, and runs a self-check before delivery.
 
-## 特性
+## Features
 
-- 预算没确认前,只输出问题清单,不出行程草稿
-- 行程范围等于指定的目的地,不擅自加周边城市。区域环线跨出指定范围时说明原因,并给出严格版替代
-- 票价、开放时间等事实性数据优先官方渠道,自媒体和野榜只作线索,标注"需官方确认";每条数据带来源和查询日期
-- 浏览时间之外留出排队、交通、吃饭、拍照的余量;顶流园区独占一天;自驾单日车程计入体量
-- 交付前重读规则,逐条填自检表(带证据)。长行程里规则容易走样,这一步是兜底
-- 输出包含:逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点和美食清单(含避雷)、二次确认清单、数据来源索引
+- Budget gate: no itinerary draft is produced until the budget is confirmed. Until then, the skill only asks clarifying questions
+- Scope red line: the itinerary covers only the stated destination. If a ring route crosses the boundary, the reason is stated and a strict alternative is offered for you to choose
+- Source hierarchy: tickets, opening hours and similar factual data prefer official channels. Self-media and informal rankings count only as leads and are labeled "needs official confirmation". Every datum carries its source and query date
+- Workload by scale: beyond viewing time, buffer is added for queues, transit, meals and photos; top-tier parks get a full day; self-drive hours count into the day's load
+- Self-check before delivery: rules are re-read before final writing and each one is filled into a self-check table with evidence. Long itineraries drift; this is the safety net
+- Output includes: day-by-day schedule, budget estimate (economy and comfort tiers), transport and accommodation suggestions, attractions and food lists (with pitfalls), a pre-trip confirmation checklist, and a data source index
 
-## 安装
+## Install
 
-### 方式一:插件安装
+### Option 1: plugin marketplace
 
-在支持插件系统的客户端终端里执行两步:
+In a plugin-capable client terminal, run two commands:
 
 ```bash
 plugin marketplace add saudademjj/luopan
 plugin install travel-planner
 ```
 
-本地调试可以用本地路径:`plugin marketplace add /path/to/luopan`,然后 `plugin install travel-planner`。
+For local development, use a local path: `plugin marketplace add /path/to/luopan`, then `plugin install travel-planner`.
 
-### 方式二:手动复制
+### Option 2: manual copy
 
-把 `skills/travel-planner` 整个目录复制到你的技能(skills)目录。
+Copy the whole `skills/travel-planner` directory into your skills directory.
 
-## 使用
+## Usage
 
-直接提旅行需求,skill 会自动触发:
+Describe your trip in plain language and the skill triggers automatically:
 
 > "帮我规划去苏州 5 天,带爸妈"
 > "北京 7 天 6 晚,情侣,预算中等"
 > "伊犁自驾 9 天,5 人,从乌鲁木齐出发"
 
-第一步先收集需求(预算必问),确认后才联网调研、排行程。也可以显式调用。
+The first step is requirement gathering (budget is mandatory). Research and scheduling start only after confirmation. Explicit invocation also works.
 
-## 迭代记录
+## Iteration log
 
-这些规则不是 skill 自动总结的,是每版行程排好后由作者本人对照真实需求挑错,错处写回规则。完整记录见 [ITERATIONS.md](ITERATIONS.md)。
+The rules were not auto-summarized by the skill. After each itinerary round, the author compared the output against real needs and wrote the mismatches back into the rules. Full record: [ITERATIONS.md](ITERATIONS.md).
 
-## 数据时效
+## Data freshness
 
-行程里的票价、开放时间、通行政策都带查询日期,输出末尾有"出行前二次确认清单",出发前请核对官方渠道。
+Prices, opening hours and travel policies in itineraries carry their query date, and every output ends with a pre-trip confirmation checklist. Verify against official channels before departure.
 
-## 示例输出
+## Example output
 
-- [伊犁 10 天自驾环线(含独库公路北段)](examples/ili-10day-itinerary.md),含规则自检表、数据来源索引
+- [10-day Xinjiang self-drive loop (including the north section of the Duku Highway)](examples/ili-10day-itinerary.md), with the rule self-check table and data source index
+
+## Languages
+
+- [中文 README](README.zh-CN.md)
 
 ## License
 
