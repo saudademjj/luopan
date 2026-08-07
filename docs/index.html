@@ -155,24 +155,6 @@
   .span-2 { grid-column: span 2; }
   .span-6 { grid-column: span 6; }
 
-  /* 规则:引语墙 */
-  .quote-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 0 44px; }
-  .quote-row { padding: 18px 0; border-bottom: 1px solid var(--line); }
-  .quote-row .q {
-    font-size: 15.5px;
-    font-weight: 500;
-    line-height: 1.7;
-    max-width: 46ch;
-  }
-  .quote-row .who {
-    display: block;
-    margin-top: 6px;
-    font-size: 12.5px;
-    letter-spacing: .1em;
-    color: var(--faint);
-  }
-  .quote-row .who::before { content: "→ "; }
-
   /* 安装步骤:数字圆点 + 行 */
   .steps { counter-reset: step; list-style: none; max-width: 640px; }
   .steps li {
@@ -293,41 +275,7 @@
 <section>
   <div class="wrap">
     <h2>迭代记录</h2>
-    <p class="lead">这些规则不是 skill 自动总结的,是每版行程排好后由作者本人对照真实需求挑错,错处写回规则。下面是部分反馈原话。完整记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
-    <div class="quote-wall">
-      <div class="quote-row">
-        <p class="q">「我只说了南京游,为什么要安排扬州镇江」</p>
-        <span class="who">范围</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「牛首山到底排前百分之多少,台城不是热门景点」</p>
-        <span class="who">优先级分级</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「红山动物园最起码得一天,得到晚上」</p>
-        <span class="who">顶流园区独占一天</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「估算浏览时间再加 1-2 小时,要排队、交通、吃饭、拍照」</p>
-        <span class="who">时间缓冲</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「山塘街这种商业化非常严重的地方,吃的全国统一」</p>
-        <span class="who">高商业化旅游街避雷</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「晚上去了两次双塔市集+山塘街」</p>
-        <span class="who">全局去重</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「印象西湖、游船这种要让游客决定要不要」</p>
-        <span class="who">主观体验类可选化</span>
-      </div>
-      <div class="quote-row">
-        <p class="q">「搜狐美食榜是野榜,自媒体不能全信」</p>
-        <span class="who">来源分级</span>
-      </div>
-    </div>
+    <p class="lead">这些规则不是 skill 自动总结的,是每版行程排好后由作者本人对照真实需求挑错,错处写回规则。完整记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
   </div>
 </section>
 
