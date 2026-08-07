@@ -2,11 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/github/v/tag/saudademjj/luopan?label=version)](https://github.com/saudademjj/luopan)
-[![Rules](https://img.shields.io/badge/rules-16-blue)](skills/travel-planner/SKILL.md)
-[![Tested: 6 cities](https://img.shields.io/badge/tested-6%20cities-brightgreen)](ITERATIONS.md)
 [![Docs](https://img.shields.io/badge/docs-online-8A2BE2)](https://saudade.me/luopan/)
 
-一款旅游行程规划 skill。排程规则按 16 条整理(R1-R13 加 3 条红线),每条都来自一次真实的反馈:先排一版行程,再请熟悉当地的人挑错,把错处写回规则。试过的城市:南京(3 轮)、苏州、杭州、北京(2 轮)、伊犁自驾(2 轮)。
+一款旅游行程规划 skill。排程前先问清预算和范围,事实数据带来源和查询日期,交付前逐条自检。
 
 ## 特性
 
@@ -44,9 +42,11 @@ plugin install travel-planner
 
 第一步先收集需求(预算必问),确认后才联网调研、排行程。也可以显式调用。
 
-## 规则怎么来的
+## 迭代记录
 
-| 规则 | 来源反馈 |
+这些规则不是 skill 自动总结的,是每版行程排好后由作者本人对照真实需求挑错,错处写回规则。下面是部分反馈原话。完整记录见 [ITERATIONS.md](ITERATIONS.md)。
+
+| 规则 | 反馈原话 |
 |---|---|
 | 范围 | "我只说了南京游,为什么要安排扬州镇江" |
 | 优先级分级 | "牛首山到底排前百分之多少,台城不是热门景点" |
@@ -56,8 +56,6 @@ plugin install travel-planner
 | 全局去重 | "晚上去了两次双塔市集+山塘街" |
 | 主观体验类可选化 | "印象西湖、游船这种要让游客决定要不要" |
 | 来源分级 | "搜狐美食榜是野榜,自媒体不能全信" |
-
-完整的迭代记录见 [ITERATIONS.md](ITERATIONS.md)。
 
 ## 数据时效
 
