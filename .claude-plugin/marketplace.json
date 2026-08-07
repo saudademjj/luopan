@@ -1,6 +1,6 @@
 {
   "name": "luopan",
-  "description": "旅游行程规划 skill 插件(marketplace 形式分发)",
+  "description": "旅游行程规划 skill:预算必问,范围红线,事实数据带来源和查询日期,交付前自检。支持自由行、家庭游、亲子游、自驾。",
   "owner": {
     "name": "saudademjj",
     "url": "https://github.com/saudademjj"
