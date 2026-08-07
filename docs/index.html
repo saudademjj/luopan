@@ -9,58 +9,58 @@
 <meta property="og:description" content="16 条排程规则,每条来自一次真实反馈;来源可追溯,输出前自检。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://saudade.me/luopan/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%23a84e22' stroke-width='6'/%3E%3Cpath d='M32 6l9 26-9 26-9-26z' fill='%23a84e22'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%231e5aa8' stroke-width='6'/%3E%3Cpath d='M32 6l9 26-9 26-9-26z' fill='%231e5aa8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-  /* 纯实色主题:无纹理、无渐变、无装饰动画。
-     调色:暖纸底 + 赭石 accent + 墨色文字,贴合"罗盘"这一传统器物的意象。 */
+  /* 纯实色冷色系:钴蓝 accent + 冷灰蓝底 + 蓝墨文字,贴合罗盘的方位与星辰意象。
+     无纹理、无渐变、无装饰动画。
+     圆角规则:卡片 16px,内嵌元素 8px,按钮和圆点 pill */
   :root {
-    --bg: #f6f1e9;
-    --card: #fdfaf4;
-    --ink: #2a2723;
-    --muted: #6f6559;
-    --faint: #9c9183;
-    --accent: #a84e22;
+    --bg: #eef1f5;
+    --card: #fbfcfe;
+    --ink: #1d2632;
+    --muted: #5a6776;
+    --faint: #8b96a5;
+    --accent: #1e5aa8;
     --accent-ink: #ffffff;
-    --accent-soft: #f0dfd0;
-    --accent-soft-ink: #4a2a16;
-    --line: #e6ddd0;
-    --code-bg: #efe8dc;
-    /* 圆角规则:卡片 16px,内嵌元素 8px,按钮和圆点 pill */
+    --accent-soft: #dbe6f5;
+    --accent-soft-ink: #16324f;
+    --line: #dde3ea;
+    --code-bg: #e7ecf3;
     --radius-lg: 16px;
     --radius-sm: 8px;
-    --shadow: 0 1px 2px rgba(90, 60, 30, .06), 0 8px 24px -12px rgba(90, 60, 30, .18);
+    --shadow: 0 1px 2px rgba(30, 50, 80, .07), 0 8px 24px -12px rgba(30, 50, 80, .18);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #1d1a17;
-      --card: #26221d;
-      --ink: #e7dfd3;
-      --muted: #a3968a;
-      --faint: #7d7164;
-      --accent: #e09160;
-      --accent-ink: #1d1a17;
-      --accent-soft: #38291e;
-      --accent-soft-ink: #e7c3a8;
-      --line: #37312a;
-      --code-bg: #2e2822;
+      --bg: #141a22;
+      --card: #1c2430;
+      --ink: #e3e9f0;
+      --muted: #93a0b0;
+      --faint: #6d7a8c;
+      --accent: #6ea0e8;
+      --accent-ink: #0f1620;
+      --accent-soft: #24334a;
+      --accent-soft-ink: #a8c4e8;
+      --line: #2b3646;
+      --code-bg: #232d3a;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #1d1a17;
-    --card: #26221d;
-    --ink: #e7dfd3;
-    --muted: #a3968a;
-    --faint: #7d7164;
-    --accent: #e09160;
-    --accent-ink: #1d1a17;
-    --accent-soft: #38291e;
-    --accent-soft-ink: #e7c3a8;
-    --line: #37312a;
-    --code-bg: #2e2822;
+    --bg: #141a22;
+    --card: #1c2430;
+    --ink: #e3e9f0;
+    --muted: #93a0b0;
+    --faint: #6d7a8c;
+    --accent: #6ea0e8;
+    --accent-ink: #0f1620;
+    --accent-soft: #24334a;
+    --accent-soft-ink: #a8c4e8;
+    --line: #2b3646;
+    --code-bg: #232d3a;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,7 +75,7 @@
   }
   .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
 
-  /* hero:品牌声明,居中保留(manifesto 型) */
+  /* hero:品牌声明,居中保留 */
   header.hero { padding: 84px 0 44px; text-align: center; }
   .compass-mark { width: 60px; height: 60px; margin: 0 auto 22px; color: var(--accent); }
   .hero h1 {
@@ -135,7 +135,7 @@
     box-shadow: var(--shadow);
     transition: transform .25s ease, box-shadow .25s ease;
   }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(90, 60, 30, .08), 0 18px 36px -16px rgba(90, 60, 30, .24); }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(30, 50, 80, .08), 0 18px 36px -16px rgba(30, 50, 80, .24); }
   .card .idx {
     font-family: "Noto Serif SC", serif;
     font-size: 13px;
@@ -155,7 +155,7 @@
   .span-2 { grid-column: span 2; }
   .span-6 { grid-column: span 6; }
 
-  /* 规则:引语墙,不用表格 */
+  /* 规则:引语墙 */
   .quote-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 0 44px; }
   .quote-row { padding: 18px 0; border-bottom: 1px solid var(--line); }
   .quote-row .q {
@@ -173,7 +173,7 @@
   }
   .quote-row .who::before { content: "→ "; }
 
-  /* 安装步骤:数字圆点 + 行,无卡片 */
+  /* 安装步骤:数字圆点 + 行 */
   .steps { counter-reset: step; list-style: none; max-width: 640px; }
   .steps li {
     counter-increment: step;
@@ -239,7 +239,7 @@
       <path d="M32 8v48M6 32h52" stroke-opacity=".35"/>
     </svg>
     <h1>luopan(罗盘)</h1>
-    <p class="sub">一款旅游行程规划 skill。16 条排程规则,每条来自一次真实反馈。</p>
+    <p class="sub">一款旅游行程规划 skill。排程规则 16 条,每条来自一次真实行程反馈。</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#install">两步安装</a>
       <a class="btn btn-ghost" href="https://github.com/saudademjj/luopan">GitHub 仓库</a>
@@ -267,27 +267,27 @@
       <div class="card span-3">
         <span class="idx">02</span>
         <h3>范围红线</h3>
-        <p>行程范围等于指定的目的地,不擅自加周边城市。区域环线跨出指定范围时说明原因,并给出严格版替代,由你拍板。</p>
+        <p>行程只覆盖你指定的地方,不擅自加城市。环线跨出范围时说明原因,另给一版严格替代,由你定。</p>
       </div>
       <div class="card span-2">
         <span class="idx">03</span>
         <h3>来源分级</h3>
-        <p>票价、开放时间等事实性数据优先官方渠道;自媒体和野榜只作线索,标注"需官方确认"。每条数据带来源和查询日期。</p>
+        <p>票价、开放时间这类数字优先官方渠道;自媒体和野榜只当线索,标"需官方确认"。每条数据带来源和查询日期。</p>
       </div>
       <div class="card span-2">
         <span class="idx">04</span>
         <h3>体量定负荷</h3>
-        <p>浏览时间之外留出排队、交通、吃饭、拍照的余量;顶流园区独占一天;自驾单日车程计入体量。</p>
+        <p>浏览时间之外,再留出排队、交通、吃饭、拍照的余量;顶流园区独占一天;自驾车程也算进当天负荷。</p>
       </div>
       <div class="card span-2">
         <span class="idx">05</span>
         <h3>输出前自检</h3>
-        <p>交付前重读规则,逐条填自检表(带证据)。长行程里规则容易走样,这一步是兜底。伊犁 10 天测试里抓出过一次排期违规。</p>
+        <p>交付前重读规则,逐条填自检表(带证据)。行程越长规则越容易走样,这一步兜底。伊犁 10 天测试里,自检抓出过一次排期违规。</p>
       </div>
       <div class="card card-tint span-6">
         <span class="idx">06</span>
         <h3>输出包含</h3>
-        <p>逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点和美食清单(含避雷)、二次确认清单、数据来源索引。</p>
+        <p>逐日行程表、预算估算(经济/舒适两档)、交通和住宿建议、景点与美食清单(含避雷)、二次确认清单、数据来源索引。</p>
       </div>
     </div>
   </div>
@@ -296,7 +296,7 @@
 <section>
   <div class="wrap">
     <h2>规则怎么来的</h2>
-    <p class="lead">先排一版行程,再请熟悉当地的人挑错,把错处写回规则。完整的迭代记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
+    <p class="lead">先排一版行程,再请熟悉当地的人挑错,把错处写回规则,再重跑。迭代记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
     <div class="quote-wall">
       <div class="quote-row">
         <p class="q">「我只说了南京游,为什么要安排扬州镇江」</p>
@@ -337,26 +337,26 @@
 <section id="install">
   <div class="wrap">
     <h2>安装</h2>
-    <p class="lead">在支持插件系统的客户端终端里执行两步:</p>
+    <p class="lead">支持插件系统的客户端终端,两步装好:</p>
     <ol class="steps">
       <li>注册插件源:<code>plugin marketplace add saudademjj/luopan</code></li>
       <li>安装 skill:<code>plugin install travel-planner</code></li>
     </ol>
-    <blockquote>本地调试可以用本地路径:<code>plugin marketplace add /path/to/luopan</code>。也可以手动把 <code>skills/travel-planner</code> 目录复制到你的技能(skills)目录。</blockquote>
+    <blockquote>本地调试用本地路径:<code>plugin marketplace add /path/to/luopan</code>。也可以把 <code>skills/travel-planner</code> 手动复制到你的 skills 目录。</blockquote>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <h2>使用</h2>
-    <p class="lead">直接提旅行需求,skill 会自动触发;也可以显式调用。</p>
+    <p class="lead">直接说需求,skill 自动触发;也可以显式调用。</p>
     <ul class="usage">
       <li>「帮我规划去苏州 5 天,带爸妈」</li>
       <li>「北京 7 天 6 晚,情侣,预算中等」</li>
       <li>「伊犁自驾 9 天,5 人,从乌鲁木齐出发」</li>
     </ul>
     <blockquote>第一步先收集需求(预算必问),确认后才联网调研、排行程。</blockquote>
-    <p class="lead">一个输出示例:<a href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md">伊犁 10 天自驾环线(含独库公路北段)</a>,含规则自检表、数据来源索引。</p>
+    <p class="lead">输出示例:<a href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md">伊犁 10 天自驾环线(含独库公路北段)</a>,含规则自检表和数据来源索引。</p>
   </div>
 </section>
 
