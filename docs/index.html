@@ -3,122 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>luopan(罗盘)— 旅游行程规划 Skill</title>
-<meta name="description" content="luopan:一款从真人裁判逐轮迭代中长出来的旅游行程规划 skill。16 条排程规则、来源可追溯、输出前自检。">
+<title>luopan(罗盘)· 旅游行程规划 Skill</title>
+<meta name="description" content="luopan:一款旅游行程规划 skill。16 条排程规则,每条来自一次真实反馈;来源可追溯,输出前自检。">
+<meta property="og:title" content="luopan(罗盘)· 旅游行程规划 Skill">
+<meta property="og:description" content="16 条排程规则,每条来自一次真实反馈;来源可追溯,输出前自检。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://saudade.me/luopan/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%23a84e22' stroke-width='6'/%3E%3Cpath d='M32 6l9 26-9 26-9-26z' fill='%23a84e22'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf7f2;
-    --card: #ffffff;
-    --ink: #2b2b2b;
-    --muted: #6b6b6b;
-    --accent: #b3552e;
-    --accent-soft: #f3e4da;
-    --line: #e8e0d6;
-    --code-bg: #f1ece4;
-    --ok: #2e7d4f;
+    --bg: #f6f1e9;
+    --card: #fdfaf4;
+    --ink: #2a2723;
+    --muted: #6f6559;
+    --faint: #9c9183;
+    --accent: #a84e22;
+    --accent-soft: #f0dfd0;
+    --line: #e6ddd0;
+    --code-bg: #efe8dc;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 2px rgba(90, 60, 30, .06), 0 8px 24px -12px rgba(90, 60, 30, .18);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #1c1a18;
-      --card: #262320;
-      --ink: #e8e2da;
-      --muted: #a49c92;
-      --accent: #e08a5e;
-      --accent-soft: #3a2c22;
-      --line: #37322c;
-      --code-bg: #2f2b26;
-      --ok: #7cc493;
+      --bg: #1d1a17;
+      --card: #26221d;
+      --ink: #e7dfd3;
+      --muted: #a3968a;
+      --faint: #7d7164;
+      --accent: #e09160;
+      --accent-soft: #38291e;
+      --line: #37312a;
+      --code-bg: #2e2822;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #1c1a18;
-    --card: #262320;
-    --ink: #e8e2da;
-    --muted: #a49c92;
-    --accent: #e08a5e;
-    --accent-soft: #3a2c22;
-    --line: #37322c;
-    --code-bg: #2f2b26;
-    --ok: #7cc493;
+    --bg: #1d1a17;
+    --card: #26221d;
+    --ink: #e7dfd3;
+    --muted: #a3968a;
+    --faint: #7d7164;
+    --accent: #e09160;
+    --accent-soft: #38291e;
+    --line: #37312a;
+    --code-bg: #2e2822;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-    line-height: 1.7;
+    font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  /* 细颗粒纹理:给纯色背景一点纸面质感 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto; padding: 0 28px; }
 
-  header.hero {
-    padding: 84px 0 56px;
-    text-align: center;
+  header.hero { padding: 96px 0 64px; text-align: center; }
+  .compass-mark {
+    width: 64px; height: 64px; margin: 0 auto 24px;
+    color: var(--accent);
+    animation: spin-in 0.9s cubic-bezier(.2, .8, .2, 1) both;
   }
-  .compass { font-size: 52px; line-height: 1; margin-bottom: 20px; }
-  .hero h1 { font-size: 44px; letter-spacing: 2px; }
-  .hero .sub { color: var(--muted); font-size: 17px; margin-top: 14px; max-width: 560px; margin-left: auto; margin-right: auto; }
-  .hero .badges { margin-top: 26px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .hero .badges img { height: 22px; }
+  @keyframes spin-in { from { transform: rotate(-120deg) scale(.6); opacity: 0; } to { transform: rotate(0) scale(1); opacity: 1; } }
+  .hero h1 {
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-weight: 900;
+    font-size: clamp(34px, 6vw, 56px);
+    letter-spacing: .04em;
+    line-height: 1.25;
+  }
+  .hero .sub {
+    color: var(--muted);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 20px auto 0;
+    max-width: 58ch;
+  }
+  .hero .badges { margin-top: 28px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .hero .badges img { height: 20px; }
+  .hero-actions { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .btn {
-    display: inline-block; margin-top: 30px; padding: 12px 30px;
-    background: var(--accent); color: #fff; text-decoration: none;
-    border-radius: 999px; font-weight: 600; letter-spacing: 1px;
-    transition: transform .15s ease, box-shadow .15s ease;
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: .08em;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
   }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+  .btn:active { transform: scale(.97); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-ghost { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
+  .btn-ghost:hover { background: var(--accent-soft); transform: translateY(-2px); }
 
-  section { padding: 48px 0; }
-  h2 { font-size: 24px; margin-bottom: 8px; }
-  .lead { color: var(--muted); margin-bottom: 28px; font-size: 15px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  section { padding: 56px 0 72px; }
+  section h2 {
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: .02em;
+    margin-bottom: 6px;
+  }
+  .lead { color: var(--muted); font-size: 15px; margin-bottom: 32px; max-width: 62ch; }
+  .lead a { color: var(--accent); }
+
+  /* 特性区:bento 式混合尺寸,不用三等宽列 */
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
   .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
-    padding: 20px 22px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 26px 28px;
+    box-shadow: var(--shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
   }
-  .card h3 { font-size: 16px; margin-bottom: 8px; }
-  .card h3 .tag { font-size: 12px; color: var(--accent); font-weight: 400; margin-left: 6px; }
-  .card p { font-size: 14px; color: var(--muted); }
-  .card b { color: var(--ink); font-weight: 600; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(90, 60, 30, .08), 0 18px 36px -16px rgba(90, 60, 30, .24); }
+  .card .idx {
+    font-family: "Noto Serif SC", serif;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
+  .card p { font-size: 14.5px; color: var(--muted); max-width: 56ch; }
+  .card p b { color: var(--ink); font-weight: 500; }
+  .span-3 { grid-column: span 3; }
+  .span-2 { grid-column: span 2; }
+  .span-6 { grid-column: span 6; }
 
-  table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
-  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--muted); font-weight: 500; white-space: nowrap; width: 150px; }
+  /* 规则表 */
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  th, td { text-align: left; padding: 13px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--faint); font-weight: 500; white-space: nowrap; width: 148px; }
+  tr:hover td { background: var(--accent-soft); }
   td a { color: var(--accent); }
 
-  .steps { counter-reset: step; list-style: none; }
+  /* 安装步骤 */
+  .steps { counter-reset: step; list-style: none; max-width: 640px; }
   .steps li {
-    counter-increment: step; position: relative;
-    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
-    padding: 16px 20px 16px 64px; margin-bottom: 12px; font-size: 15px;
+    counter-increment: step;
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 18px 22px 18px 62px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    box-shadow: var(--shadow);
   }
   .steps li::before {
     content: counter(step);
-    position: absolute; left: 18px; top: 16px;
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--accent-soft); color: var(--accent);
+    position: absolute; left: 18px; top: 17px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px;
+    font-weight: 700; font-size: 13px;
   }
   .steps code, .usage code {
-    background: var(--code-bg); border-radius: 6px; padding: 2px 8px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+    background: var(--code-bg);
+    border-radius: var(--radius-sm);
+    padding: 2px 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
   }
   blockquote {
-    border-left: 3px solid var(--accent); background: var(--accent-soft);
-    padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 15px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 14px 20px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 20px 0;
+    font-size: 14.5px;
+    max-width: 640px;
   }
-  .usage li { margin: 8px 0 8px 20px; color: var(--muted); }
+  .usage { max-width: 620px; }
+  .usage li { margin: 10px 0 10px 20px; color: var(--muted); font-size: 15px; }
   .usage li code { color: var(--ink); }
 
-  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 40px 0 56px; }
-  footer a { color: var(--muted); }
+  footer { text-align: center; color: var(--faint); font-size: 13px; padding: 48px 0 64px; }
+  footer a { color: var(--faint); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
 
+  @media (max-width: 860px) {
+    .span-3, .span-2, .span-6 { grid-column: span 6; }
+    section { padding: 40px 0 56px; }
+  }
   @media (max-width: 600px) {
-    .hero { padding: 56px 0 40px; }
-    .hero h1 { font-size: 34px; }
+    .hero { padding: 64px 0 44px; }
+    .hero h1 { font-size: 32px; }
     th { display: none; }
-    td { display: block; border: none; padding: 6px 0; }
+    td { display: block; border: none; padding: 8px 0; }
   }
 </style>
 </head>
@@ -126,50 +225,60 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="compass">🧭</div>
+    <svg class="compass-mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true">
+      <circle cx="32" cy="32" r="26"/>
+      <path d="M32 8l7 24-7 24-7-24z" stroke="none" fill="currentColor"/>
+      <path d="M32 8v48M6 32h52" stroke-opacity=".35"/>
+    </svg>
     <h1>luopan(罗盘)</h1>
-    <p class="sub">一款旅游行程规划 skill——16 条排程规则全部来自<b>真人裁判逐轮迭代</b>,每一轮先用干净提示词生成行程,再由熟悉目的地的人挑刺,把每条反馈固化成规则,重跑验证。</p>
+    <p class="sub">一款旅游行程规划 skill。排程规则按 16 条整理(R1-R13 加 3 条红线),每条都来自一次真实的反馈:先排一版行程,再请熟悉当地的人挑错,把错处写回规则。</p>
     <div class="badges">
       <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT license">
       <img src="https://img.shields.io/github/v/tag/saudademjj/luopan?label=version" alt="version">
       <img src="https://img.shields.io/badge/rules-16-blue" alt="16 rules">
-      <img src="https://img.shields.io/badge/verified-6%20cities-brightgreen" alt="verified in 6 cities">
+      <img src="https://img.shields.io/badge/tested-6%20cities-brightgreen" alt="tested in 6 cities">
     </div>
-    <div>
-      <a class="btn" href="#install">两步安装</a>
-      <a class="btn" href="https://github.com/saudademjj/luopan" style="background:transparent;color:var(--accent);border:1px solid var(--accent);">GitHub 仓库</a>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#install">两步安装</a>
+      <a class="btn btn-ghost" href="https://github.com/saudademjj/luopan">GitHub 仓库</a>
     </div>
   </div>
 </header>
 
 <section>
   <div class="wrap">
-    <h2>为什么值得用</h2>
-    <p class="lead">不是拍脑袋写出来的提示词——每一条规则都能追溯到一次真实的规划翻车。</p>
-    <div class="grid">
-      <div class="card">
-        <h3>必问预算 <span class="tag">第一步红线</span></h3>
-        <p>预算未确认前只输出问题清单,<b>不出任何行程草稿</b>。拒绝先斩后奏。</p>
+    <h2>特性</h2>
+    <p class="lead">试过的城市:南京(3 轮)、苏州、杭州、北京(2 轮)、伊犁自驾(2 轮)。</p>
+    <div class="bento">
+      <div class="card span-3">
+        <span class="idx">01</span>
+        <h3>必问预算</h3>
+        <p>预算没确认前,只输出问题清单,<b>不出行程草稿</b>。</p>
       </div>
-      <div class="card">
-        <h3>范围红线 <span class="tag">不越界</span></h3>
-        <p>行程严格等于你指定的目的地,不擅自加周边城市。区域环线跨出范围时,解释 + 给严格版替代,由你拍板。</p>
+      <div class="card span-3">
+        <span class="idx">02</span>
+        <h3>范围红线</h3>
+        <p>行程范围等于指定的目的地,不擅自加周边城市。区域环线跨出指定范围时说明原因,并给出严格版替代,由你拍板。</p>
       </div>
-      <div class="card">
-        <h3>来源分级可追溯</h3>
-        <p>票价、开放时间优先官方渠道;自媒体与野榜只作线索并标注「需官方确认」。<b>每条数据带来源 + 查询日期</b>。</p>
+      <div class="card span-2">
+        <span class="idx">03</span>
+        <h3>来源分级</h3>
+        <p>票价、开放时间等事实性数据优先官方渠道;自媒体和野榜只作线索,标注"需官方确认"。每条数据带来源和查询日期。</p>
       </div>
-      <div class="card">
+      <div class="card span-2">
+        <span class="idx">04</span>
         <h3>体量定负荷</h3>
-        <p>估算浏览时间 + 排队交通吃饭拍照的缓冲;顶流园区独占一天;自驾单日车程计入体量,不让你赶场。</p>
+        <p>浏览时间之外留出排队、交通、吃饭、拍照的余量;顶流园区独占一天;自驾单日车程计入体量。</p>
       </div>
-      <div class="card">
+      <div class="card span-2">
+        <span class="idx">05</span>
         <h3>输出前自检</h3>
-        <p>交付前重读规则 + 逐条填写<b>规则自检表</b>(带证据),防止长行程中规则「磨损」——伊犁 10 天里它当场抓出过一次违规排期。</p>
+        <p>交付前重读规则,逐条填自检表(带证据)。长行程里规则容易走样,这一步是兜底。伊犁 10 天测试里抓出过一次排期违规。</p>
       </div>
-      <div class="card">
-        <h3>完整模板</h3>
-        <p>逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点与美食清单(含避雷)、二次确认清单、数据来源索引。</p>
+      <div class="card span-6">
+        <span class="idx">06</span>
+        <h3>输出包含</h3>
+        <p>逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点和美食清单(含避雷)、二次确认清单、数据来源索引。</p>
       </div>
     </div>
   </div>
@@ -177,14 +286,13 @@
 
 <section>
   <div class="wrap">
-    <h2>规则从哪里来</h2>
-    <p class="lead">血统表:每条规则都能追溯到一次真实的规划翻车(完整记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>)。</p>
+    <h2>规则怎么来的</h2>
+    <p class="lead">每条规则对应一次真实的反馈。完整的迭代记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
     <table>
-      <tr><th>规则</th><td>来源反馈</td></tr>
-      <tr><th>范围红线</th><td>「我只说了南京游,为什么要安排扬州镇江」</td></tr>
+      <tr><th>范围</th><td>「我只说了南京游,为什么要安排扬州镇江」</td></tr>
       <tr><th>优先级分级</th><td>「牛首山到底排前百分之多少,台城不是热门景点」</td></tr>
       <tr><th>顶流园区独占一天</th><td>「红山动物园最起码得一天,得到晚上」</td></tr>
-      <tr><th>时间缓冲</th><td>「估算浏览时间再加 1–2 小时,要排队、交通、吃饭、拍照」</td></tr>
+      <tr><th>时间缓冲</th><td>「估算浏览时间再加 1-2 小时,要排队、交通、吃饭、拍照」</td></tr>
       <tr><th>高商业化旅游街避雷</th><td>「山塘街这种商业化非常严重的地方,吃的全国统一」</td></tr>
       <tr><th>全局去重</th><td>「晚上去了两次双塔市集+山塘街」</td></tr>
       <tr><th>主观体验类可选化</th><td>「印象西湖、游船这种要让游客决定要不要」</td></tr>
@@ -196,31 +304,32 @@
 <section id="install">
   <div class="wrap">
     <h2>安装</h2>
-    <p class="lead">在支持插件系统的客户端终端中执行两步:</p>
+    <p class="lead">在支持插件系统的客户端终端里执行两步:</p>
     <ol class="steps">
       <li>注册插件源:<code>plugin marketplace add saudademjj/luopan</code></li>
       <li>安装 skill:<code>plugin install travel-planner</code></li>
     </ol>
-    <blockquote>本地开发调试可用本地路径:<code>plugin marketplace add /path/to/luopan</code>。也可以手动把 <code>skills/travel-planner</code> 目录复制到你的技能(skills)目录。</blockquote>
+    <blockquote>本地调试可以用本地路径:<code>plugin marketplace add /path/to/luopan</code>。也可以手动把 <code>skills/travel-planner</code> 目录复制到你的技能(skills)目录。</blockquote>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <h2>使用</h2>
-    <p class="lead">直接提出旅行需求,skill 会自动触发;也可以显式调用。</p>
+    <p class="lead">直接提旅行需求,skill 会自动触发;也可以显式调用。</p>
     <ul class="usage">
       <li>「帮我规划去苏州 5 天,带爸妈」</li>
       <li>「北京 7 天 6 晚,情侣,预算中等」</li>
       <li>「伊犁自驾 9 天,5 人,从乌鲁木齐出发」</li>
     </ul>
-    <blockquote>第一步会先收集需求(预算必问),确认后才联网调研、排行程。</blockquote>
-    <p class="lead">完整成品示例:<a href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md">伊犁 10 天自驾环线(含独库公路北段)</a>——含规则自检表、数据来源索引的完整输出。</p>
+    <blockquote>第一步先收集需求(预算必问),确认后才联网调研、排行程。</blockquote>
+    <p class="lead">一个输出示例:<a href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md">伊犁 10 天自驾环线(含独库公路北段)</a>,含规则自检表、数据来源索引。</p>
   </div>
 </section>
 
 <footer>
-  <p>luopan(罗盘)· 数据会过期,机制不会——所有票价与开放时间均带查询日期,出行前请核对官方渠道。</p>
+  <p>luopan(罗盘)</p>
+  <p>所有票价和开放时间都带查询日期,出行前请核对官方渠道。</p>
   <p><a href="https://github.com/saudademjj/luopan/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/saudademjj/luopan">GitHub</a></p>
 </footer>
 
