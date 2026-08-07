@@ -4,63 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>luopan(罗盘)· 旅游行程规划 Skill</title>
-<meta name="description" content="luopan:一款旅游行程规划 skill。16 条排程规则,每条来自一次真实反馈;来源可追溯,输出前自检。">
+<meta name="description" content="luopan:一款旅游行程规划 skill。排程前先问清预算和范围,事实数据带来源,交付前自检。">
 <meta property="og:title" content="luopan(罗盘)· 旅游行程规划 Skill">
-<meta property="og:description" content="16 条排程规则,每条来自一次真实反馈;来源可追溯,输出前自检。">
+<meta property="og:description" content="排程前先问清预算和范围,事实数据带来源,交付前自检。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://saudade.me/luopan/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%231e5aa8' stroke-width='6'/%3E%3Cpath d='M32 6l9 26-9 26-9-26z' fill='%231e5aa8'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%233b82f6' stroke-width='6'/%3E%3Cpath d='M32 6l9 26-9 26-9-26z' fill='%233b82f6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-  /* 纯实色冷色系:钴蓝 accent + 冷灰蓝底 + 蓝墨文字,贴合罗盘的方位与星辰意象。
-     无纹理、无渐变、无装饰动画。
-     圆角规则:卡片 16px,内嵌元素 8px,按钮和圆点 pill */
+  /* 与个人主页(saudade.me)同一视觉语言:灰白/纯黑双主题、蓝 accent、Plus Jakarta Sans + Noto Sans SC。
+     保持纯实色:无纹理、无渐变、无装饰动画。
+     圆角规则:卡片 20px,内嵌元素 10px,按钮和圆点 pill */
   :root {
-    --bg: #eef1f5;
-    --card: #fbfcfe;
-    --ink: #1d2632;
-    --muted: #5a6776;
-    --faint: #8b96a5;
-    --accent: #1e5aa8;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --ink: #050505;
+    --muted: #71717a;
+    --faint: #a1a1aa;
+    --accent: #3b82f6;
+    --accent-strong: #1d4ed8;
     --accent-ink: #ffffff;
-    --accent-soft: #dbe6f5;
-    --accent-soft-ink: #16324f;
-    --line: #dde3ea;
-    --code-bg: #e7ecf3;
-    --radius-lg: 16px;
-    --radius-sm: 8px;
-    --shadow: 0 1px 2px rgba(30, 50, 80, .07), 0 8px 24px -12px rgba(30, 50, 80, .18);
+    --accent-soft: #eaf1fe;
+    --accent-soft-ink: #1e3a8a;
+    --line: rgba(0, 0, 0, .06);
+    --code-bg: #f1f3f5;
+    --radius-lg: 20px;
+    --radius-sm: 10px;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px -12px rgba(37, 99, 235, .12);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #141a22;
-      --card: #1c2430;
-      --ink: #e3e9f0;
-      --muted: #93a0b0;
-      --faint: #6d7a8c;
-      --accent: #6ea0e8;
-      --accent-ink: #0f1620;
-      --accent-soft: #24334a;
-      --accent-soft-ink: #a8c4e8;
-      --line: #2b3646;
-      --code-bg: #232d3a;
+      --bg: #0a0a0a;
+      --card: #121212;
+      --ink: #f8f9fa;
+      --muted: #a1a1aa;
+      --faint: #6b7280;
+      --accent: #60a5fa;
+      --accent-strong: #3b82f6;
+      --accent-ink: #0a0a0a;
+      --accent-soft: #1e293b;
+      --accent-soft-ink: #bfdbfe;
+      --line: rgba(255, 255, 255, .08);
+      --code-bg: #1a1a1a;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #141a22;
-    --card: #1c2430;
-    --ink: #e3e9f0;
-    --muted: #93a0b0;
-    --faint: #6d7a8c;
-    --accent: #6ea0e8;
-    --accent-ink: #0f1620;
-    --accent-soft: #24334a;
-    --accent-soft-ink: #a8c4e8;
-    --line: #2b3646;
-    --code-bg: #232d3a;
+    --bg: #0a0a0a;
+    --card: #121212;
+    --ink: #f8f9fa;
+    --muted: #a1a1aa;
+    --faint: #6b7280;
+    --accent: #60a5fa;
+    --accent-strong: #3b82f6;
+    --accent-ink: #0a0a0a;
+    --accent-soft: #1e293b;
+    --accent-soft-ink: #bfdbfe;
+    --line: rgba(255, 255, 255, .08);
+    --code-bg: #1a1a1a;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -79,11 +82,11 @@
   header.hero { padding: 84px 0 44px; text-align: center; }
   .compass-mark { width: 60px; height: 60px; margin: 0 auto 22px; color: var(--accent); }
   .hero h1 {
-    font-family: "Noto Serif SC", "Songti SC", serif;
-    font-weight: 900;
+    font-family: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
+    font-weight: 800;
     font-size: clamp(34px, 6vw, 54px);
-    letter-spacing: .04em;
-    line-height: 1.25;
+    letter-spacing: -.01em;
+    line-height: 1.2;
   }
   .hero .sub {
     color: var(--muted);
@@ -97,15 +100,15 @@
     display: inline-block;
     padding: 11px 26px;
     border-radius: 999px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 15px;
-    letter-spacing: .08em;
+    letter-spacing: .02em;
     text-decoration: none;
     transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
   }
   .btn:active { transform: scale(.97); }
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary { background: var(--accent); color: #ffffff; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .btn-ghost { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
   .btn-ghost:hover { background: var(--accent-soft); transform: translateY(-2px); }
@@ -116,16 +119,16 @@
 
   section { padding: 56px 0 72px; }
   section h2 {
-    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-family: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
     font-weight: 700;
     font-size: 27px;
-    letter-spacing: .02em;
+    letter-spacing: -.01em;
     margin-bottom: 6px;
   }
   .lead { color: var(--muted); font-size: 15px; margin-bottom: 32px; max-width: 62ch; }
   .lead a { color: var(--accent); }
 
-  /* 特性:bento 混合格。01 实色 accent 底、06 浅 accent 底,其余卡片底 */
+  /* 特性:bento 混合格。01 深蓝实底、06 浅蓝 tint,其余卡片底 */
   .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
   .card {
     background: var(--card);
@@ -135,22 +138,24 @@
     box-shadow: var(--shadow);
     transition: transform .25s ease, box-shadow .25s ease;
   }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(30, 50, 80, .08), 0 18px 36px -16px rgba(30, 50, 80, .24); }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 0, 0, .05), 0 18px 36px -16px rgba(37, 99, 235, .18); }
   .card .idx {
-    font-family: "Noto Serif SC", serif;
-    font-size: 13px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 12.5px;
     font-weight: 700;
-    letter-spacing: .12em;
+    letter-spacing: .14em;
+    color: var(--accent);
     display: block;
     margin-bottom: 10px;
   }
   .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
   .card p { font-size: 14.5px; color: var(--muted); max-width: 56ch; }
   .card p b { color: var(--ink); font-weight: 500; }
-  .card-solid { background: var(--accent); border-color: var(--accent); }
-  .card-solid .idx, .card-solid h3, .card-solid p, .card-solid p b { color: var(--accent-ink); }
+  .card-solid { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .card-solid .idx, .card-solid h3, .card-solid p, .card-solid p b { color: #ffffff; }
+  .card-solid .idx { color: rgba(255, 255, 255, .75); }
   .card-tint { background: var(--accent-soft); border-color: var(--accent-soft); box-shadow: none; }
-  .card-tint .idx { color: var(--accent); }
+  .card-tint .idx { color: var(--accent-strong); }
   .span-3 { grid-column: span 3; }
   .span-2 { grid-column: span 2; }
   .span-6 { grid-column: span 6; }
@@ -171,8 +176,9 @@
     width: 32px; height: 32px;
     border-radius: 999px;
     background: var(--accent);
-    color: var(--accent-ink);
+    color: #ffffff;
     display: flex; align-items: center; justify-content: center;
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 700; font-size: 13px;
   }
   .steps code, .usage code {
@@ -202,7 +208,6 @@
 
   @media (max-width: 860px) {
     .span-3, .span-2, .span-6 { grid-column: span 6; }
-    .quote-wall { grid-template-columns: 1fr; }
     section { padding: 40px 0 56px; }
   }
   @media (max-width: 600px) {
