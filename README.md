@@ -3,54 +3,52 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/github/v/tag/saudademjj/luopan?label=version)](https://github.com/saudademjj/luopan)
 [![Rules](https://img.shields.io/badge/rules-16-blue)](skills/travel-planner/SKILL.md)
-[![Verified: 6 cities](https://img.shields.io/badge/verified-6%20cities-brightgreen)](ITERATIONS.md)
-[![Docs](https://img.shields.io/badge/docs-online-8A2BE2)](http://saudade.me/luopan/)
+[![Tested: 6 cities](https://img.shields.io/badge/tested-6%20cities-brightgreen)](ITERATIONS.md)
+[![Docs](https://img.shields.io/badge/docs-online-8A2BE2)](https://saudade.me/luopan/)
 
-一款**旅游行程规划 skill**。不是拍脑袋写出来的提示词——它的 16 条排程规则全部来自**真人裁判逐轮迭代**:每一轮先用干净提示词生成行程,再由熟悉目的地的人挑刺,把每条反馈固化成规则,再重跑验证。经南京(3 轮)、苏州、杭州、北京(2 轮)、伊犁自驾(2 轮)六座城市/形态验证。
+一款旅游行程规划 skill。排程规则按 16 条整理(R1-R13 加 3 条红线),每条都来自一次真实的反馈:先排一版行程,再请熟悉当地的人挑错,把错处写回规则。试过的城市:南京(3 轮)、苏州、杭州、北京(2 轮)、伊犁自驾(2 轮)。
 
 ## 特性
 
-- **必问预算**:预算未确认前只输出问题清单,不出任何行程草稿
-- **范围红线**:行程严格等于用户指定的目的地,不擅自加周边城市;区域环线跨出指定范围时明确解释并提供严格版替代
-- **来源分级与可追溯**:票价/开放时间等事实性数据优先官方渠道,自媒体与野榜只作线索并标注"需官方确认";每条数据带来源 + 查询日期
-- **16 条排程规则(R1-R13 + 3 红线)**:优先级分级、商业化旅游街避雷、体量定负荷(自驾含车程)、顶流园区独占、时间缓冲、不砍核心景点、住宿锚定、全局去重、主观体验类项目可选化……
-- **输出前自检**:交付前重读规则 + 逐条填写规则自检表(带证据),防止长行程中规则"磨损"
-- **完整模板**:逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点与美食清单(含避雷)、二次确认清单、数据来源索引
+- 预算没确认前,只输出问题清单,不出行程草稿
+- 行程范围等于指定的目的地,不擅自加周边城市。区域环线跨出指定范围时说明原因,并给出严格版替代
+- 票价、开放时间等事实性数据优先官方渠道,自媒体和野榜只作线索,标注"需官方确认";每条数据带来源和查询日期
+- 浏览时间之外留出排队、交通、吃饭、拍照的余量;顶流园区独占一天;自驾单日车程计入体量
+- 交付前重读规则,逐条填自检表(带证据)。长行程里规则容易走样,这一步是兜底
+- 输出包含:逐日行程表、预算估算(经济/舒适两档)、交通住宿建议、景点和美食清单(含避雷)、二次确认清单、数据来源索引
 
 ## 安装
 
-### 方式一:插件安装(推荐)
+### 方式一:插件安装
 
-在支持插件系统的客户端终端中执行两步:
+在支持插件系统的客户端终端里执行两步:
 
 ```bash
 plugin marketplace add saudademjj/luopan
 plugin install travel-planner
 ```
 
-本地开发调试可用本地路径:`plugin marketplace add /path/to/luopan`,然后 `plugin install travel-planner`。
+本地调试可以用本地路径:`plugin marketplace add /path/to/luopan`,然后 `plugin install travel-planner`。
 
 ### 方式二:手动复制
 
-将 `skills/travel-planner` 整个目录复制到你的 agent 的技能(skills)目录即可。
+把 `skills/travel-planner` 整个目录复制到你的技能(skills)目录。
 
 ## 使用
 
-直接提出旅行需求即可,skill 会自动触发:
+直接提旅行需求,skill 会自动触发:
 
 > "帮我规划去苏州 5 天,带爸妈"
 > "北京 7 天 6 晚,情侣,预算中等"
 > "伊犁自驾 9 天,5 人,从乌鲁木齐出发"
 
-第一步会先收集需求(预算必问),确认后才联网调研、排行程。也可以 `/travel-planner` 显式调用。
+第一步先收集需求(预算必问),确认后才联网调研、排行程。也可以显式调用。
 
-## 设计哲学:规则从哪里来
-
-每条规则都能追溯到一次真实的规划翻车,例如:
+## 规则怎么来的
 
 | 规则 | 来源反馈 |
 |---|---|
-| 范围红线 | "我只说了南京游,为什么要安排扬州镇江" |
+| 范围 | "我只说了南京游,为什么要安排扬州镇江" |
 | 优先级分级 | "牛首山到底排前百分之多少,台城不是热门景点" |
 | 顶流园区独占一天 | "红山动物园最起码得一天,得到晚上" |
 | 时间缓冲 | "估算浏览时间再加 1-2 小时,要排队、交通、吃饭、拍照" |
@@ -59,15 +57,15 @@ plugin install travel-planner
 | 主观体验类可选化 | "印象西湖、游船这种要让游客决定要不要" |
 | 来源分级 | "搜狐美食榜是野榜,自媒体不能全信" |
 
-完整血统与迭代过程见 [ITERATIONS.md](ITERATIONS.md)(整理中)。
+完整的迭代记录见 [ITERATIONS.md](ITERATIONS.md)。
 
-## 数据时效声明
+## 数据时效
 
-行程中的所有票价、开放时间、通行政策均带**查询日期**,并有"出行前二次确认清单"提示用户出发前核对官方渠道。数据会过期,机制不会——请以官方渠道为准。
+行程里的票价、开放时间、通行政策都带查询日期,输出末尾有"出行前二次确认清单",出发前请核对官方渠道。
 
 ## 示例输出
 
-- [伊犁 10 天自驾环线(含独库公路北段)](examples/ili-10day-itinerary.md)——含规则自检表、数据来源索引的完整成品
+- [伊犁 10 天自驾环线(含独库公路北段)](examples/ili-10day-itinerary.md),含规则自检表、数据来源索引
 
 ## License
 
