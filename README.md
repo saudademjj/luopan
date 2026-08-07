@@ -1,5 +1,11 @@
 # luopan(罗盘)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/github/v/tag/saudademjj/luopan?label=version)](https://github.com/saudademjj/luopan)
+[![Rules](https://img.shields.io/badge/rules-16-blue)](skills/travel-planner/SKILL.md)
+[![Verified: 6 cities](https://img.shields.io/badge/verified-6%20cities-brightgreen)](ITERATIONS.md)
+[![Docs](https://img.shields.io/badge/docs-online-8A2BE2)](https://saudademjj.github.io/luopan/)
+
 一款**旅游行程规划 skill**。不是拍脑袋写出来的提示词——它的 16 条排程规则全部来自**真人裁判逐轮迭代**:每一轮先用干净提示词生成行程,再由熟悉目的地的人挑刺,把每条反馈固化成规则,再重跑验证。经南京(3 轮)、苏州、杭州、北京(2 轮)、伊犁自驾(2 轮)六座城市/形态验证。
 
 ## 特性
