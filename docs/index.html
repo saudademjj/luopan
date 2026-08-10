@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>luopan(罗盘)· 旅游行程规划 Skill</title>
-<meta name="description" content="luopan:一款旅游行程规划 skill。排程前先问清预算和范围,事实数据带来源,交付前自检。">
+<meta name="description" content="luopan(罗盘):一款旅游行程规划 skill。排程前先问清预算和范围,事实数据带来源,交付前自检。16 条规则全部来自真人裁判逐轮迭代。">
 <meta property="og:title" content="luopan(罗盘)· 旅游行程规划 Skill">
-<meta property="og:description" content="排程前先问清预算和范围,事实数据带来源,交付前自检。">
+<meta property="og:description" content="排程前先问清预算和范围,事实数据带来源,交付前自检。16 条规则,5 城实测,9 轮真人裁判。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://saudade.me/luopan/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%233b82f6' stroke-width='6'/%3E%3Cpath d='M32 6l9 26-9 26-9-26z' fill='%233b82f6'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#08090c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%235b8cff' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%235b8cff' stroke-width='1.5' opacity='.6'/%3E%3Cpath d='M32 14l7 18-7 18-7-18z' fill='%235b8cff'/%3E%3Cpath d='M32 14v36' stroke='%2308090c' stroke-width='2'/%3E%3C/svg%3E">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -30,313 +31,826 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  /* 与个人主页(saudade.me)同一视觉语言:灰白/纯黑双主题、蓝 accent、Plus Jakarta Sans + Noto Sans SC。
-     保持纯实色:无纹理、无渐变、无装饰动画。
-     圆角规则:卡片 20px,内嵌元素 10px,按钮和圆点 pill */
+  /* ============ 设计系统 ============
+     luopan(罗盘) · 与 saudade.me 同一品牌 DNA:
+     暗底玻璃拟态、网格线 + 噪点纹理、蓝 accent、Plus Jakarta Sans + Noto Sans SC。
+     母题:罗盘——外环刻度盘缓转,针体恒定指向。
+     纯色扁平 + 克制的氛围光,不滥用渐变。 */
   :root {
-    --bg: #f8f9fa;
-    --card: #ffffff;
-    --ink: #050505;
-    --muted: #71717a;
-    --muted-strong: #56585f;
-    --faint: #a1a1aa;
-    --accent: #3b82f6;
-    --accent-strong: #1d4ed8;
-    --accent-ink: #ffffff;
-    --accent-soft: #eaf1fe;
-    --accent-soft-ink: #1e3a8a;
-    --line: rgba(0, 0, 0, .06);
-    --code-bg: #f1f3f5;
-    --radius-lg: 20px;
-    --radius-sm: 10px;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px -12px rgba(37, 99, 235, .12);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0a0a0a;
-      --card: #121212;
-      --ink: #f8f9fa;
-      --muted: #a1a1aa;
-      --muted-strong: #a1a1aa;
-      --faint: #6b7280;
-      --accent: #60a5fa;
-      --accent-strong: #60a5fa;
-      --accent-ink: #0a0a0a;
-      --accent-soft: #1e293b;
-      --accent-soft-ink: #bfdbfe;
-      --line: rgba(255, 255, 255, .08);
-      --code-bg: #1a1a1a;
-      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0a0a0a;
-    --card: #121212;
-    --ink: #f8f9fa;
-    --muted: #a1a1aa;
-    --faint: #6b7280;
-    --accent: #60a5fa;
+    --bg: #08090c;
+    --bg-soft: #0e1016;
+    --card: rgba(255, 255, 255, .045);
+    --card-hover: rgba(255, 255, 255, .075);
+    --card-solid: #10131b;
+    --line: rgba(255, 255, 255, .09);
+    --line-strong: rgba(255, 255, 255, .17);
+    --ink: #f2f4f8;
+    --muted: #9aa1b0;
+    --faint: #5c6472;
+    --accent: #5b8cff;
     --accent-strong: #3b82f6;
-    --accent-ink: #0a0a0a;
-    --accent-soft: #1e293b;
-    --accent-soft-ink: #bfdbfe;
-    --line: rgba(255, 255, 255, .08);
-    --code-bg: #1a1a1a;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
+    --accent-ink: #081022;
+    --accent-soft: rgba(91, 140, 255, .12);
+    --accent-glow: rgba(91, 140, 255, .22);
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --shadow: 0 24px 60px -24px rgba(0, 0, 0, .65);
+    --nav-h: 66px;
+    --wrap: 1120px;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   }
+  [data-theme="light"] {
+    --bg: #f5f6f9;
+    --bg-soft: #eef0f5;
+    --card: rgba(255, 255, 255, .72);
+    --card-hover: #ffffff;
+    --card-solid: #ffffff;
+    --line: rgba(10, 14, 26, .09);
+    --line-strong: rgba(10, 14, 26, .18);
+    --ink: #0b0e15;
+    --muted: #555d6c;
+    --faint: #99a0ae;
+    --accent: #2f6bff;
+    --accent-strong: #1d56e8;
+    --accent-ink: #ffffff;
+    --accent-soft: rgba(47, 107, 255, .09);
+    --accent-glow: rgba(47, 107, 255, .16);
+    --shadow: 0 24px 60px -30px rgba(30, 60, 120, .35);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 20px); }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    font-weight: 400;
-    line-height: 1.75;
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans SC", sans-serif;
+    font-size: 15.5px;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  a { color: var(--accent); text-decoration: none; }
+  p { text-wrap: pretty; }
+  h1, h2, h3 { text-wrap: balance; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
 
-  /* hero:品牌声明,居中保留 */
-  header.hero { padding: 84px 0 44px; text-align: center; }
-  .compass-mark { width: 60px; height: 60px; margin: 0 auto 22px; color: var(--accent); }
+  /* ---------- 氛围层:网格 + 噪点(同 saudade.me) ---------- */
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+            mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+    opacity: .55;
+  }
+  .noise-overlay {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .glow-orb {
+    position: fixed; z-index: 0; pointer-events: none; border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+    filter: blur(10px);
+  }
+  .glow-orb.orb-a { width: 620px; height: 620px; top: -220px; left: 50%; transform: translateX(-50%); }
+  .glow-orb.orb-b { width: 480px; height: 480px; top: 1100px; right: -240px; opacity: .7; }
+  .glow-orb.orb-c { width: 480px; height: 480px; top: 2200px; left: -240px; opacity: .6; }
+
+  /* 滚动进度条 */
+  #progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--accent); z-index: 60; transition: width .08s linear; }
+
+  /* ---------- 顶栏 ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    height: var(--nav-h);
+    display: flex; align-items: center;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
+  }
+  nav.scrolled {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-color: var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15.5px; color: var(--ink); letter-spacing: .01em; }
+  .nav-brand .mark { width: 26px; height: 26px; color: var(--accent); }
+  .nav-brand small { font-weight: 600; color: var(--faint); font-size: 12px; letter-spacing: .08em; }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-links a {
+    color: var(--muted); font-size: 14px; font-weight: 500;
+    padding: 8px 14px; border-radius: 999px; transition: color .2s ease, background .2s ease;
+  }
+  .nav-links a:hover { color: var(--ink); background: var(--card); }
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
+  .theme-btn {
+    width: 38px; height: 38px; display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--muted);
+    cursor: pointer; transition: color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  .theme-btn:hover { color: var(--accent); border-color: var(--line-strong); }
+  .theme-btn svg { width: 16px; height: 16px; }
+  .theme-btn .icon-sun { display: none; }
+  [data-theme="light"] .theme-btn .icon-sun { display: block; }
+  [data-theme="light"] .theme-btn .icon-moon { display: none; }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 18px; border-radius: 999px;
+    background: var(--accent); color: var(--accent-ink);
+    font-size: 13.5px; font-weight: 700;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 26px -10px var(--accent-glow); }
+
+  /* ---------- Hero ---------- */
+  header.hero { position: relative; z-index: 1; padding: calc(var(--nav-h) + 72px) 0 40px; text-align: center; }
+  .rosette-wrap {
+    position: relative; width: 232px; height: 232px; margin: 0 auto 34px;
+  }
+  .rosette-wrap .rosette { position: absolute; inset: 0; }
+  .rosette-wrap .rosette.ring { animation: rosette-spin 90s linear infinite; }
+  .rosette-wrap .rosette.core { animation: rosette-float 6s ease-in-out infinite; }
+  @keyframes rosette-spin { to { transform: rotate(360deg); } }
+  @keyframes rosette-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .rosette-wrap .rosette.ring, .rosette-wrap .rosette.core { animation: none; }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 16px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--line);
+    font-size: 13px; font-weight: 600; letter-spacing: .06em;
+    margin-bottom: 26px;
+  }
+  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(52, 211, 153, .15); }
   .hero h1 {
-    font-family: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
-    font-weight: 800;
-    font-size: clamp(34px, 6vw, 54px);
-    letter-spacing: -.01em;
-    line-height: 1.2;
+    font-weight: 800; letter-spacing: -.02em;
+    font-size: clamp(44px, 8vw, 78px); line-height: 1.08;
+  }
+  .hero h1 .zh { font-weight: 900; }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, #8ab0ff 0%, var(--accent) 45%, #c4a8ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .hero .sub {
-    color: var(--muted);
-    font-size: 16px;
-    font-weight: 300;
-    margin: 18px auto 0;
-    max-width: 52ch;
+    color: var(--muted); font-weight: 300;
+    font-size: clamp(15.5px, 2.4vw, 17.5px);
+    max-width: 58ch; margin: 22px auto 0; line-height: 1.9;
   }
-  .hero-actions { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .hero .sub strong { color: var(--ink); font-weight: 700; }
+  .hero-actions { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .btn {
-    display: inline-block;
-    padding: 11px 26px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: .02em;
-    text-decoration: none;
-    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 28px; border-radius: 999px;
+    font-size: 15px; font-weight: 700; letter-spacing: .02em;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
   }
+  .btn svg { width: 16px; height: 16px; }
   .btn:active { transform: scale(.97); }
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .btn-primary { background: var(--accent-strong); color: var(--accent-ink); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .btn-ghost { border: 1px solid var(--accent-strong); color: var(--accent-strong); background: transparent; }
-  .btn-ghost:hover { background: var(--accent-soft); transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px var(--accent-glow); }
+  .btn-ghost { border: 1px solid var(--line-strong); color: var(--ink); background: var(--card); }
+  .btn-ghost:hover { transform: translateY(-2px); background: var(--card-hover); border-color: var(--accent); }
+  .meta-strip { margin-top: 38px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .meta-strip img { height: 22px; border-radius: 6px; }
+  .scroll-hint { margin-top: 54px; color: var(--faint); font-size: 12px; letter-spacing: .3em; display: inline-flex; flex-direction: column; align-items: center; gap: 8px; }
+  .scroll-hint svg { width: 14px; height: 14px; animation: hint-drop 2.2s ease-in-out infinite; }
+  @keyframes hint-drop { 0%, 100% { transform: translateY(0); opacity: .6; } 50% { transform: translateY(5px); opacity: 1; } }
 
-  /* 项目状态徽章:hero 之下,独立一行 */
-  .meta-strip { padding: 8px 0 56px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-  .meta-strip img { height: 20px; }
-
-  section { padding: 56px 0 72px; }
-  section h2 {
-    font-family: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
-    font-weight: 700;
-    font-size: 27px;
-    letter-spacing: -.01em;
-    margin-bottom: 6px;
+  /* ---------- Section 骨架 ---------- */
+  section { position: relative; z-index: 1; padding: 88px 0; }
+  .sec-head { max-width: 680px; }
+  .sec-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent); font-size: 12.5px; font-weight: 700; letter-spacing: .18em;
+    margin-bottom: 14px;
   }
-  .lead { color: var(--muted); font-size: 15px; margin-bottom: 32px; max-width: 62ch; }
-  .lead a { color: var(--accent-strong); }
+  .sec-eyebrow::before { content: ""; width: 18px; height: 1.5px; background: var(--accent); border-radius: 2px; }
+  section h2 {
+    font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -.015em; line-height: 1.25;
+  }
+  .lead { color: var(--muted); font-size: 15.5px; margin-top: 14px; max-width: 62ch; }
+  .lead a { color: var(--accent); font-weight: 600; }
+  .lead a:hover { text-decoration: underline; }
 
-  /* 特性:bento 混合格。01 深蓝实底、06 浅蓝 tint,其余卡片底 */
-  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  /* ---------- 特性 bento ---------- */
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 44px; }
   .card {
+    position: relative;
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: 24px 26px;
-    box-shadow: var(--shadow);
-    transition: transform .25s ease, box-shadow .25s ease;
+    padding: 30px 28px;
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    overflow: hidden;
+    transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease;
   }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 0, 0, .05), 0 18px 36px -16px rgba(37, 99, 235, .18); }
+  .card:hover { transform: translateY(-5px); border-color: var(--line-strong); background: var(--card-hover); box-shadow: var(--shadow); }
+  .card .card-bg {
+    position: absolute; right: -34px; top: -34px; width: 130px; height: 130px; pointer-events: none;
+    color: var(--line-strong); opacity: .5;
+  }
   .card .idx {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: .14em;
-    color: var(--accent-strong);
-    display: block;
-    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--accent);
+    margin-bottom: 18px;
   }
-  .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
-  .card p { font-size: 14.5px; color: var(--muted); max-width: 56ch; }
-  .card p b { color: var(--ink); font-weight: 500; }
+  .card .idx .num {
+    font-family: var(--mono); font-size: 11px;
+    background: var(--accent-soft); color: var(--accent);
+    padding: 3px 9px; border-radius: 999px; letter-spacing: .06em;
+  }
+  .card h3 { font-size: 17.5px; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
+  .card p { font-size: 14.5px; color: var(--muted); max-width: 54ch; }
+  .card p b, .card p strong { color: var(--ink); font-weight: 600; }
   .card-solid { background: var(--accent-strong); border-color: var(--accent-strong); }
-  .card-solid .idx, .card-solid h3, .card-solid p, .card-solid p b { color: var(--accent-ink); }
-  .card-tint { background: var(--accent-soft); border-color: var(--accent-soft); box-shadow: none; }
-  .card-tint .idx { color: var(--accent-strong); }
-  .card-tint p { color: var(--muted-strong); }
+  .card-solid::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 85% 0%, rgba(255, 255, 255, .18), transparent 55%);
+  }
+  .card-solid:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .card-solid .idx, .card-solid .idx .num { color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .14); }
+  .card-solid h3, .card-solid p, .card-solid p b, .card-solid p strong { color: #fff; }
+  .card-solid p { color: rgba(255, 255, 255, .82); }
+  .card-solid .card-bg { color: rgba(255, 255, 255, .22); }
   .span-3 { grid-column: span 3; }
   .span-2 { grid-column: span 2; }
   .span-6 { grid-column: span 6; }
 
-  /* 安装步骤:数字圆点 + 行 */
-  .steps { counter-reset: step; list-style: none; max-width: 640px; }
-  .steps li {
-    counter-increment: step;
-    position: relative;
-    padding: 14px 0 14px 56px;
-    font-size: 15px;
-    border-bottom: 1px solid var(--line);
+  /* ---------- 迭代记录 ---------- */
+  .iter-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; margin-top: 48px; align-items: start; }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; }
+  .stat {
+    background: var(--card-solid); border: 1px solid var(--line); border-radius: var(--radius-md);
+    padding: 18px 20px; text-align: left;
   }
-  .steps li:last-child { border-bottom: none; }
-  .steps li::before {
-    content: counter(step);
-    position: absolute; left: 0; top: 13px;
-    width: 32px; height: 32px;
-    border-radius: 999px;
-    background: var(--accent-strong);
-    color: var(--accent-ink);
-    display: flex; align-items: center; justify-content: center;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700; font-size: 13px;
+  .stat .n {
+    font-family: var(--mono); font-size: 26px; font-weight: 600; color: var(--ink); line-height: 1.1;
   }
-  .steps code, .usage code {
-    background: var(--code-bg);
-    border-radius: var(--radius-sm);
-    padding: 2px 8px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 13px;
+  .stat .n em { color: var(--accent); font-style: normal; }
+  .stat .l { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .timeline { position: relative; padding-left: 26px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1.5px;
+    background: linear-gradient(var(--line-strong), var(--line));
   }
-  blockquote {
-    border-left: 3px solid var(--accent);
-    background: var(--accent-soft);
-    color: var(--accent-soft-ink);
-    padding: 14px 20px;
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    margin: 20px 0;
-    font-size: 14.5px;
-    max-width: 640px;
+  .t-item { position: relative; padding: 0 0 30px 18px; }
+  .t-item:last-child { padding-bottom: 0; }
+  .t-item::before {
+    content: ""; position: absolute; left: -26px; top: 7px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--accent);
   }
-  .usage { max-width: 620px; }
-  .usage li { margin: 10px 0 10px 20px; color: var(--muted); font-size: 15px; }
-  .usage li code { color: var(--ink); }
+  .t-city { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .t-city .name { font-size: 15.5px; font-weight: 700; color: var(--ink); }
+  .t-city .rounds {
+    font-family: var(--mono); font-size: 11.5px; color: var(--accent);
+    background: var(--accent-soft); padding: 2px 9px; border-radius: 999px;
+  }
+  .t-item p { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+  .iter-right { display: flex; flex-direction: column; gap: 16px; }
+  .mech-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 24px 26px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    transition: transform .28s ease, border-color .28s ease;
+  }
+  .mech-card:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+  .mech-card .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent); margin-bottom: 10px; }
+  .mech-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .mech-card p { font-size: 14px; color: var(--muted); }
+  .mech-card .mono { font-family: var(--mono); color: var(--ink); font-size: 12.5px; }
+  .story-card {
+    background: var(--accent-soft); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 24px 26px;
+  }
+  .story-card .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent); margin-bottom: 10px; }
+  .story-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .story-card p { font-size: 14px; color: var(--muted); }
+  .story-card p .fix { color: var(--ok); font-weight: 700; }
 
-  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 48px 0 64px; }
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--accent-strong); }
+  /* ---------- 安装:终端 ---------- */
+  .term {
+    margin-top: 44px; max-width: 720px;
+    background: #0d0f16; border: 1px solid var(--line-strong); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  [data-theme="light"] .term { background: #10131c; }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 13px 18px; border-bottom: 1px solid rgba(255, 255, 255, .07);
+  }
+  .term-bar .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .term-bar .dot.r { background: #ff5f57; } .term-bar .dot.y { background: #febc2e; } .term-bar .dot.g { background: #28c840; }
+  .term-bar .title { margin-left: 10px; color: rgba(255, 255, 255, .5); font-family: var(--mono); font-size: 12px; }
+  .term-body { padding: 22px 22px 26px; font-family: var(--mono); font-size: 13.5px; line-height: 2; }
+  .t-row { display: flex; align-items: center; gap: 12px; }
+  .t-row .ps1 { color: var(--accent); flex-shrink: 0; }
+  .t-row .cmd { color: #e6e9f2; }
+  .t-row .cmd .hl { color: #8ab0ff; }
+  .copy-btn {
+    margin-left: auto; flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 5px;
+    border: 1px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .05); color: rgba(255, 255, 255, .6);
+    border-radius: 7px; padding: 4px 10px; font-size: 11px; font-family: var(--mono);
+    cursor: pointer; transition: color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  .copy-btn:hover { color: #fff; border-color: var(--accent); background: rgba(91, 140, 255, .15); }
+  .copy-btn.copied { color: #34d399; border-color: rgba(52, 211, 153, .4); }
+  .copy-btn svg { width: 11px; height: 11px; }
+  .t-out { color: rgba(255, 255, 255, .55); }
+  .t-out .ok { color: #34d399; }
+  .t-out .dim { color: rgba(255, 255, 255, .35); }
+  .term-note {
+    display: flex; gap: 14px; align-items: flex-start;
+    margin-top: 22px; max-width: 720px;
+    background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm); padding: 16px 20px;
+    font-size: 14px; color: var(--muted);
+  }
+  .term-note code, .usage-note code {
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink);
+    background: var(--accent-soft); padding: 1.5px 7px; border-radius: 6px;
+  }
 
-  @media (max-width: 860px) {
+  /* ---------- 使用 ---------- */
+  .use-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; margin-top: 44px; align-items: start; }
+  .chat-stack { display: flex; flex-direction: column; gap: 12px; }
+  .bubble {
+    position: relative; max-width: 92%;
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px 18px 18px 18px;
+    padding: 15px 20px; font-size: 15px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .bubble:hover { transform: translateX(4px); border-color: var(--line-strong); }
+  .bubble .who { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; color: var(--accent); margin-bottom: 5px; }
+  .bubble .body { color: var(--ink); }
+  .bubble .body .hl { color: var(--accent); font-weight: 700; }
+  .use-note {
+    margin-top: 26px; max-width: 92%;
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--accent-soft); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 15px 20px; font-size: 14px; color: var(--muted);
+  }
+  .example-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 26px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+  }
+  .example-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .example-card .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent); margin-bottom: 12px; }
+  .example-card h3 { font-size: 18px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 8px; }
+  .example-card p { font-size: 14px; color: var(--muted); }
+  .example-card .go {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+    color: var(--accent); font-size: 14px; font-weight: 700;
+  }
+  .example-card .go svg { width: 15px; height: 15px; transition: transform .2s ease; }
+  .example-card:hover .go svg { transform: translateX(4px); }
+  .example-card .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .example-card .chips span {
+    font-size: 12px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+  }
+
+  /* ---------- 页脚 ---------- */
+  footer { position: relative; z-index: 1; padding: 64px 0 72px; text-align: center; }
+  .foot-line { max-width: var(--wrap); margin: 0 auto; border-top: 1px solid var(--line); }
+  footer .mark { width: 30px; height: 30px; color: var(--accent); margin: 40px auto 16px; }
+  footer .name { font-weight: 800; font-size: 16px; letter-spacing: .02em; }
+  footer .disc { color: var(--muted); font-size: 13.5px; margin: 10px auto 0; max-width: 46ch; }
+  footer .links { display: flex; justify-content: center; gap: 24px; margin-top: 22px; font-size: 13.5px; }
+  footer .links a { color: var(--muted); font-weight: 600; transition: color .2s ease; }
+  footer .links a:hover { color: var(--accent); }
+
+  /* ---------- 入场动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
     .span-3, .span-2, .span-6 { grid-column: span 6; }
-    section { padding: 40px 0 56px; }
+    .iter-grid, .use-layout { grid-template-columns: 1fr; gap: 40px; }
+    section { padding: 64px 0; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 600px) {
-    .hero { padding: 64px 0 32px; }
-    .hero h1 { font-size: 32px; }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 20px; }
+    header.hero { padding-top: calc(var(--nav-h) + 48px); }
+    .rosette-wrap { width: 180px; height: 180px; }
+    .card { padding: 24px 22px; }
+    .nav-cta { padding: 8px 14px; font-size: 12.5px; }
+    .term-body { font-size: 12px; padding: 18px 16px 22px; }
+    .copy-btn { padding: 3px 8px; }
+    .stats-row { grid-template-columns: 1fr; }
+    .t-item { padding-left: 14px; }
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<div class="grid-overlay" aria-hidden="true"></div>
+<div class="noise-overlay" aria-hidden="true"></div>
+<div class="glow-orb orb-a" aria-hidden="true"></div>
+<div class="glow-orb orb-b" aria-hidden="true"></div>
+<div class="glow-orb orb-c" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a class="nav-brand" href="#top">
+      <svg class="mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" aria-hidden="true">
+        <circle cx="32" cy="32" r="26"/>
+        <circle cx="32" cy="32" r="18" stroke-width="1.5" opacity=".5"/>
+        <path d="M32 12l8 20-8 20-8-20z" stroke="none" fill="currentColor"/>
+      </svg>
+      <span>luopan</span><small>ROSETTA</small>
+    </a>
+    <div class="nav-links">
+      <a href="#features">特性</a>
+      <a href="#iteration">迭代</a>
+      <a href="#install">安装</a>
+      <a href="#usage">使用</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="切换明暗主题">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      </button>
+      <a class="nav-cta" href="https://github.com/saudademjj/luopan" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.05.78 2.13v3.15c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
   <div class="wrap">
-    <svg class="compass-mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true">
-      <circle cx="32" cy="32" r="26"/>
-      <path d="M32 8l7 24-7 24-7-24z" stroke="none" fill="currentColor"/>
-      <path d="M32 8v48M6 32h52" stroke-opacity=".35"/>
-    </svg>
-    <h1>luopan(罗盘)</h1>
-    <p class="sub">一款旅游行程规划 skill。排程前先问清预算和范围,事实数据带来源,交付前自检。</p>
+    <div class="rosette-wrap" aria-hidden="true">
+      <svg class="rosette ring" viewBox="0 0 232 232" fill="none" stroke="currentColor">
+        <circle cx="116" cy="116" r="110" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+        <circle cx="116" cy="116" r="98" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+        <g stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round">
+          <line x1="116" y1="6" x2="116" y2="18"/>
+          <line x1="116" y1="214" x2="116" y2="226" opacity=".5"/>
+          <line x1="6" y1="116" x2="18" y2="116" opacity=".5"/>
+          <line x1="214" y1="116" x2="226" y2="116" opacity=".5"/>
+        </g>
+        <g stroke="rgba(255,255,255,.22)" stroke-width="1" stroke-linecap="round">
+          <line x1="116" y1="6" x2="116" y2="13" transform="rotate(30 116 116)" opacity="0"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(30 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(60 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(120 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(150 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(210 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(240 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(300 116 116)"/>
+          <line x1="116" y1="6" x2="116" y2="12" transform="rotate(330 116 116)"/>
+        </g>
+        <g fill="rgba(255,255,255,.5)" font-family="Noto Sans SC" font-size="13" font-weight="700" text-anchor="middle">
+          <text x="116" y="44">北</text>
+          <text x="116" y="201">南</text>
+          <text x="34" y="120">西</text>
+          <text x="198" y="120">东</text>
+        </g>
+        <circle cx="116" cy="116" r="56" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="2 6"/>
+      </svg>
+      <svg class="rosette core" viewBox="0 0 232 232" fill="none" stroke="currentColor">
+        <circle cx="116" cy="116" r="88" stroke="var(--accent)" stroke-width="1" opacity=".35"/>
+        <circle cx="116" cy="116" r="70" stroke="var(--accent)" stroke-width="1" opacity=".2" stroke-dasharray="3 7"/>
+        <path d="M116 52l22 64-22 64-22-64z" fill="var(--accent)"/>
+        <path d="M116 52v128" stroke="var(--bg)" stroke-width="3"/>
+        <path d="M116 116l46 8-46 8z" fill="var(--accent)" opacity=".8"/>
+        <path d="M116 116l-46 8 46 8z" fill="var(--accent)" opacity=".4"/>
+        <circle cx="116" cy="116" r="9" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5"/>
+      </svg>
+    </div>
+
+    <div class="hero-badge"><span class="dot"></span>Agent Skill · Plugin Market · MIT License</div>
+    <h1>luopan <span class="grad zh">罗盘</span></h1>
+    <p class="sub">一款旅游行程规划 skill:<strong>排程前先问清预算和范围</strong>,事实数据带来源,交付前自检。<strong>16 条规则,9 轮真人裁判迭代</strong>,在真实城市里逐步打磨成型。</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#install">两步安装</a>
-      <a class="btn btn-ghost" href="https://github.com/saudademjj/luopan">GitHub 仓库</a>
+      <a class="btn btn-primary" href="#install">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        两步安装
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/saudademjj/luopan" target="_blank" rel="noopener">GitHub 仓库</a>
+    </div>
+    <div class="meta-strip">
+      <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT license">
+      <img src="https://img.shields.io/github/v/tag/saudademjj/luopan?label=version" alt="version">
+      <img src="https://img.shields.io/badge/18%20commits-236ad3.svg" alt="18 commits">
+    </div>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
   </div>
 </header>
 
-<div class="meta-strip wrap">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT license">
-  <img src="https://img.shields.io/github/v/tag/saudademjj/luopan?label=version" alt="version">
-</div>
-
-<section>
+<section id="features">
   <div class="wrap">
-    <h2>特性</h2>
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">FEATURES</span>
+      <h2>排程纪律,不是建议,是规则</h2>
+      <p class="lead">行程排不好,多半不是调研不够,是规则没有守住。罗盘的每一条规则都来自真实行程的翻车现场,逐条写回。</p>
+    </div>
+
     <div class="bento">
-      <div class="card card-solid span-3">
-        <span class="idx">01</span>
+      <div class="card card-solid span-3 reveal">
+        <svg class="card-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <span class="idx"><span class="num">01</span>Budget Gate</span>
         <h3>必问预算</h3>
-        <p>预算没确认前,只输出问题清单,不出行程草稿。</p>
+        <p>预算没确认前,只输出问题清单,<b>不出行程草稿</b>。口径没定,后面每一步都是空的。</p>
       </div>
-      <div class="card span-3">
-        <span class="idx">02</span>
+
+      <div class="card span-3 reveal">
+        <svg class="card-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span class="idx"><span class="num">02</span>Scope Red Line</span>
         <h3>范围红线</h3>
-        <p>行程只覆盖你指定的地方,不擅自加城市。环线跨出范围时说明原因,另给一版严格替代,由你定。</p>
+        <p>行程只覆盖你指定的地方,<b>不擅自加城市</b>。环线跨出范围时说明原因,另给一版严格替代,由你定。</p>
       </div>
-      <div class="card span-2">
-        <span class="idx">03</span>
+
+      <div class="card span-2 reveal">
+        <svg class="card-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+        <span class="idx"><span class="num">03</span>Source</span>
         <h3>来源分级</h3>
-        <p>票价、开放时间这类数字优先官方渠道;自媒体和野榜只当线索,标"需官方确认"。每条数据带来源和查询日期。</p>
+        <p>票价、开放时间这类数字优先官方渠道;自媒体和野榜只当线索,标"需官方确认"。每条数据带<b>来源和查询日期</b>。</p>
       </div>
-      <div class="card span-2">
-        <span class="idx">04</span>
+
+      <div class="card span-2 reveal">
+        <svg class="card-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M4 12a8 8 0 1 1 16 0"/><path d="M4 12h3M17 12h3M12 4v3M12 17v3"/><circle cx="12" cy="12" r="2.5"/></svg>
+        <span class="idx"><span class="num">04</span>Workload</span>
         <h3>体量定负荷</h3>
-        <p>浏览时间之外,再留出排队、交通、吃饭、拍照的余量;顶流园区独占一天;自驾车程也算进当天负荷。</p>
+        <p>浏览时间之外,再留出<b>排队、交通、吃饭、拍照</b>的余量;顶流园区独占一天;自驾车程也算进当天负荷。</p>
       </div>
-      <div class="card span-2">
-        <span class="idx">05</span>
+
+      <div class="card span-2 reveal">
+        <svg class="card-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="5" cy="6" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="5" cy="18" r="1.6"/></svg>
+        <span class="idx"><span class="num">05</span>Self-check</span>
         <h3>输出前自检</h3>
-        <p>交付前重读规则,逐条填自检表(带证据)。行程越长规则越容易走样,这一步兜底。</p>
+        <p>交付前重读规则,逐条填自检表(带证据)。<b>行程越长规则越容易走样</b>,这一步兜底。</p>
       </div>
-      <div class="card card-tint span-6">
-        <span class="idx">06</span>
+
+      <div class="card span-6 reveal">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <span class="idx" style="margin-bottom:0;"><span class="num">06</span>Deliverables</span>
+        </div>
         <h3>输出包含</h3>
-        <p>逐日行程表、预算估算(经济/舒适两档)、交通和住宿建议、景点与美食清单(含避雷)、二次确认清单、数据来源索引。</p>
+        <p style="max-width:none;">逐日行程表、预算估算(经济/舒适两档)、交通和住宿建议、景点与美食清单(含避雷)、二次确认清单、数据来源索引。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section id="iteration">
   <div class="wrap">
-    <!-- TODO: 真实行程照片(banner, 横版 3:1, 冷色调, 建议 ≥1600×530)。配一张真实的旅行照片(如伊犁或苏州实拍),与"真人裁判迭代"叙述呼应。 -->
-    <h2>迭代记录</h2>
-    <p class="lead">这些规则不是 skill 自动总结的,是每版行程排好后由作者本人对照真实需求挑错,错处写回规则。完整记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md">ITERATIONS.md</a>。</p>
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">HUMAN-JUDGED ITERATION</span>
+      <h2>不是 AI 自评,是真人裁判</h2>
+      <p class="lead">2026-08-07 全天,罗盘以"真人裁判"模式迭代:每轮用干净提示词生成行程,再由熟悉目的地的人逐条反馈,每条固化成规则,同意后重跑验证。完整记录见 <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md" target="_blank" rel="noopener">ITERATIONS.md</a>。</p>
+    </div>
+
+    <div class="iter-grid">
+      <div class="reveal">
+        <div class="stats-row">
+          <div class="stat"><div class="n">1<em>6</em></div><div class="l">条规则,含 3 条红线</div></div>
+          <div class="stat"><div class="n">0<em>9</em></div><div class="l">轮实测回合</div></div>
+          <div class="stat"><div class="n">0<em>5</em></div><div class="l">种城市 / 行程形态</div></div>
+        </div>
+
+        <div class="timeline" style="margin-top:40px;">
+          <div class="t-item">
+            <div class="t-city"><span class="name">南京</span><span class="rounds">3 轮</span></div>
+            <p>基线对比、优先级、体量、缓冲、住宿锚定、顶流独占</p>
+          </div>
+          <div class="t-item">
+            <div class="t-city"><span class="name">苏州</span><span class="rounds">1 轮</span></div>
+            <p>规则泛化到第二座城市;避雷、去重</p>
+          </div>
+          <div class="t-item">
+            <div class="t-city"><span class="name">杭州</span><span class="rounds">1 轮</span></div>
+            <p>避雷首战,9 处信息矛盾如实标注</p>
+          </div>
+          <div class="t-item">
+            <div class="t-city"><span class="name">北京</span><span class="rounds">2 轮</span></div>
+            <p>大城压力测试;主观体验可选化、来源分级、排版分层</p>
+          </div>
+          <div class="t-item">
+            <div class="t-city"><span class="name">伊犁自驾</span><span class="rounds">2 轮</span></div>
+            <p>自驾形态(车程计入体量)、区域环线范围红线、异地还车、自检表首战</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="iter-right reveal">
+        <div class="mech-card">
+          <span class="tag">ANTI-DRIFT 01</span>
+          <h3>输出前强制重读</h3>
+          <p>长行程输出时,约束会随上下文增长而"磨损"。正式撰写前先重读 R1–R13 与红线,<span class="mono">在草稿修正,不带到成品</span>。</p>
+        </div>
+        <div class="mech-card">
+          <span class="tag">ANTI-DRIFT 02</span>
+          <h3>规则自检表</h3>
+          <p>输出末尾逐条填写判定(<span class="mono">✓ / ✗ / —</span>)与证据,<b style="color:var(--ink);">不得留空</b>。约束被逐条显式验收,走样无处藏身。</p>
+        </div>
+        <div class="story-card">
+          <span class="tag">FIELD INCIDENT · 伊犁 v2</span>
+          <h3>自检机制当场捕获一次违规</h3>
+          <p>规划中"河谷草原 + 巴音布鲁克同日"被自检表捕获(违反 R3 体量 / R4 顶流独占),<span class="fix">改为上午休整、午后单去巴音</span>,规则在交付前完成修正。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="install">
   <div class="wrap">
-    <h2>安装</h2>
-    <p class="lead">支持插件系统的客户端终端,两步装好:</p>
-    <ol class="steps">
-      <li>注册插件源:<code>plugin marketplace add saudademjj/luopan</code></li>
-      <li>安装 skill:<code>plugin install travel-planner</code></li>
-    </ol>
-    <blockquote>本地调试用本地路径:<code>plugin marketplace add /path/to/luopan</code>。也可以把 <code>skills/travel-planner</code> 手动复制到你的 skills 目录。</blockquote>
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">INSTALL</span>
+      <h2>两步装好,即插即用</h2>
+      <p class="lead">支持插件系统的客户端终端,两条命令完成注册与安装。</p>
+    </div>
+
+    <div class="term reveal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="title">terminal — zsh</span>
+      </div>
+      <div class="term-body">
+        <div class="t-row">
+          <span class="ps1">$</span>
+          <span class="cmd">plugin marketplace add <span class="hl">saudademjj/luopan</span></span>
+          <button class="copy-btn" data-copy="plugin marketplace add saudademjj/luopan" aria-label="复制命令">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>复制</span>
+          </button>
+        </div>
+        <div class="t-out">&nbsp;&nbsp;✔ <span class="ok">已注册插件源</span> <span class="dim">saudademjj/luopan</span></div>
+        <div class="t-row" style="margin-top:10px;">
+          <span class="ps1">$</span>
+          <span class="cmd">plugin install <span class="hl">travel-planner</span></span>
+          <button class="copy-btn" data-copy="plugin install travel-planner" aria-label="复制命令">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>复制</span>
+          </button>
+        </div>
+        <div class="t-out">&nbsp;&nbsp;✔ <span class="ok">已安装 skill</span> <span class="dim">travel-planner</span></div>
+      </div>
+    </div>
+
+    <div class="term-note reveal">
+      <svg style="width:16px;height:16px;flex-shrink:0;margin-top:4px;" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>本地调试用本地路径:<code>plugin marketplace add /path/to/luopan</code>。也可以把 <code>skills/travel-planner</code> 手动复制到你的 skills 目录。</span>
+    </div>
   </div>
 </section>
 
-<section>
+<section id="usage">
   <div class="wrap">
-    <h2>使用</h2>
-    <p class="lead">直接说需求,skill 自动触发;也可以显式调用。</p>
-    <ul class="usage">
-      <li>「帮我规划去苏州 5 天,带爸妈」</li>
-      <li>「北京 7 天 6 晚,情侣,预算中等」</li>
-      <li>「伊犁自驾 9 天,5 人,从乌鲁木齐出发」</li>
-    </ul>
-    <blockquote>第一步先收集需求(预算必问),确认后才联网调研、排行程。</blockquote>
-    <!-- TODO: 输出示例的配套照片(竖版或方图, 冷色调, 建议 ≥800×600)。真实行程实拍最佳;当前示例仅文字链接。 -->
-    <p class="lead">输出示例:<a href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md">伊犁 10 天自驾环线(含独库公路北段)</a>,含规则自检表和数据来源索引。</p>
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">USAGE</span>
+      <h2>说人话,它就开工</h2>
+      <p class="lead">直接描述需求,skill 自动触发;也可以显式调用。第一步永远先收集需求——预算必问。</p>
+    </div>
+
+    <div class="use-layout">
+      <div class="reveal">
+        <div class="chat-stack">
+          <div class="bubble">
+            <span class="who">YOU · 苏州</span>
+            <span class="body">「帮我规划去<span class="hl">苏州 5 天</span>,带爸妈」</span>
+          </div>
+          <div class="bubble">
+            <span class="who">YOU · 北京</span>
+            <span class="body">「<span class="hl">北京 7 天 6 晚</span>,情侣,预算中等」</span>
+          </div>
+          <div class="bubble">
+            <span class="who">YOU · 伊犁</span>
+            <span class="body">「<span class="hl">伊犁自驾 9 天</span>,5 人,从乌鲁木齐出发」</span>
+          </div>
+        </div>
+        <div class="use-note">
+          <svg style="width:16px;height:16px;flex-shrink:0;margin-top:4px;" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+          <span>第一步先收集需求(预算必问),确认后才联网调研、排行程。</span>
+        </div>
+      </div>
+
+      <a class="example-card reveal" href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md" target="_blank" rel="noopener">
+        <span class="tag">EXAMPLE OUTPUT</span>
+        <h3>伊犁 10 天自驾环线<br>含独库公路北段</h3>
+        <p>完整示例输出,含规则自检表和数据来源索引——每条事实数据都能追溯。</p>
+        <div class="chips">
+          <span>自检表 ✓</span>
+          <span>来源索引 ✓</span>
+          <span>经济 / 舒适两档 ✓</span>
+        </div>
+        <span class="go">查看示例
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <p>luopan(罗盘)</p>
-  <p>所有票价和开放时间都带查询日期,出行前请核对官方渠道。</p>
-  <p><a href="https://github.com/saudademjj/luopan/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/saudademjj/luopan">GitHub</a></p>
+  <div class="foot-line"></div>
+  <div class="wrap">
+    <svg class="mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true">
+      <circle cx="32" cy="32" r="26"/>
+      <path d="M32 10l8 22-8 22-8-22z" stroke="none" fill="currentColor"/>
+    </svg>
+    <div class="name">luopan(罗盘)</div>
+    <p class="disc">所有票价和开放时间都带查询日期,出行前请核对官方渠道。</p>
+    <div class="links">
+      <a href="https://github.com/saudademjj/luopan/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+      <a href="https://github.com/saudademjj/luopan" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/saudademjj/luopan/blob/main/ITERATIONS.md" target="_blank" rel="noopener">迭代记录</a>
+    </div>
+  </div>
 </footer>
 
+<script>
+  (function () {
+    /* 主题切换,持久化 */
+    var stored = null;
+    try { stored = localStorage.getItem("luopan-theme"); } catch (e) {}
+    var root = document.documentElement;
+    if (stored === "light") root.setAttribute("data-theme", "light");
+    document.getElementById("themeBtn").addEventListener("click", function () {
+      var light = root.getAttribute("data-theme") === "light";
+      root.setAttribute("data-theme", light ? "dark" : "light");
+      try { localStorage.setItem("luopan-theme", light ? "dark" : "light"); } catch (e) {}
+    });
+
+    /* 顶栏滚动态 */
+    var nav = document.getElementById("nav");
+    function onScroll() {
+      nav.classList.toggle("scrolled", window.scrollY > 10);
+      var h = document.documentElement;
+      var pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+      document.getElementById("progress").style.width = pct + "%";
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* 入场动画 */
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+      document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    } else {
+      document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+    }
+
+    /* 复制命令 */
+    document.querySelectorAll(".copy-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var text = btn.getAttribute("data-copy");
+        function done() {
+          btn.classList.add("copied");
+          var label = btn.querySelector("span");
+          if (label) label.textContent = "已复制";
+          setTimeout(function () {
+            btn.classList.remove("copied");
+            if (label) label.textContent = "复制";
+          }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+        } else { fallback(); }
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+      });
+    });
+  })();
+</script>
 </body>
 </html>
