@@ -256,7 +256,7 @@
   .btn-ghost:hover { background: var(--panel-strong); }
   .btn-ghost:hover svg { transform: translateX(3px); }
 
-  /* Hero 右侧:同心罗盘总装(蓝盘 + 罗盘 + 印章,共用 55% 轴心) */
+  /* Hero 右侧:同心罗盘总装(蓝盘 + 罗盘,共用 55% 轴心) */
   .hero-visual { position: relative; z-index: 1; height: 440px; }
   .hero-disc, .rosette-wrap {
     position: absolute; top: 50%; left: 55%;
@@ -269,12 +269,6 @@
   .rosette-wrap .rosette.core { transform: rotate(-8deg); animation: needle-settle .8s ease-out forwards; }
   @keyframes ring-spin { to { transform: rotate(360deg); } }
   @keyframes needle-settle { to { transform: rotate(0deg); } }
-  .seal {
-    position: absolute; top: calc(50% + 118px); left: calc(55% - 32px);
-    width: 64px; height: 64px; border-radius: var(--radius-sm);
-    background: var(--accent-deep); display: grid; place-items: center;
-  }
-  .seal svg { width: 30px; height: 30px; color: var(--accent-ink); }
 
   /* ---------- Section 骨架 ---------- */
   section { padding: 88px 0 96px; }
@@ -516,36 +510,46 @@
   .example-card {
     display: block;
     background: var(--accent-panel); border-radius: var(--radius-lg);
-    padding: 28px;
+    padding: 24px 24px 0;
     transition: background .25s ease, transform .25s ease;
   }
   .example-card:hover { background: var(--accent-panel-hover); transform: translateY(-4px); }
-  .example-card-inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: 26px; align-items: center; }
-  .example-card .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent); margin-bottom: 12px; }
-  .example-card h3 { font-size: 20px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 8px; color: var(--ink); line-height: 1.35; }
-  .example-card p { font-size: 14px; color: var(--muted); }
-  .example-card .go {
-    display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
-    color: var(--accent); font-size: 14px; font-weight: 700;
+  .ex-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+  .example-card .tag { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent); }
+  .ex-badge {
+    width: 40px; height: 40px; flex-shrink: 0; border-radius: var(--radius-sm);
+    background: var(--accent-deep); display: grid; place-items: center;
+    transition: background .2s ease;
   }
-  .example-card .go svg { width: 15px; height: 15px; transition: transform .2s ease; }
+  .example-card:hover .ex-badge { background: var(--accent); }
+  .ex-badge svg { width: 20px; height: 20px; color: var(--accent-ink); }
+  .ex-main { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .example-card h3 { font-size: 22px; font-weight: 800; letter-spacing: -.01em; line-height: 1.3; color: var(--ink); margin-bottom: 10px; }
+  .example-card p { font-size: 14px; line-height: 1.75; color: var(--muted); }
+  .ex-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ex-wall span {
+    display: flex; align-items: baseline; gap: 9px;
+    background: var(--panel); border-radius: var(--radius-sm);
+    padding: 12px 14px; font-size: 13px; font-weight: 600; color: var(--ink);
+    transition: background .2s ease;
+  }
+  .example-card:hover .ex-wall span { background: var(--panel-strong); }
+  .ex-wall i { font-family: var(--mono); font-style: normal; font-size: 10.5px; font-weight: 600; color: var(--accent); }
+  .ex-foot {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 18px;
+    margin: 26px -24px 0; padding: 13px 24px;
+    background: var(--accent-deep); border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    transition: background .25s ease;
+  }
+  .example-card:hover .ex-foot { background: var(--accent); }
+  .ex-qa { font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .04em; color: var(--accent-ink); }
+  .ex-qa b { color: #d1fae5; font-weight: 700; }
+  .ex-foot .go {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent-ink); font-size: 14px; font-weight: 700;
+  }
+  .ex-foot .go svg { width: 15px; height: 15px; transition: transform .2s ease; }
   .example-card:hover .go svg { transform: translateX(4px); }
-  .ex-visual { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-  .diamond {
-    width: 96px; height: 96px; border-radius: var(--radius-sm);
-    background: var(--accent-deep); transform: rotate(45deg);
-    display: grid; place-items: center;
-    transition: transform .25s ease;
-  }
-  .example-card:hover .diamond { transform: rotate(45deg) translateY(-2px); }
-  .diamond svg { width: 30px; height: 30px; transform: rotate(-45deg); color: var(--footer-ink); }
-  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-  .chips span {
-    font-size: 11.5px; color: var(--ink); text-align: center;
-    background: var(--track-strong); border-radius: var(--radius-sm);
-    padding: 8px 4px; line-height: 1.5;
-  }
-  .chips .full { grid-column: 1 / -1; }
 
   /* ---------- 页脚:反转实色收束 ---------- */
   footer {
@@ -628,7 +632,6 @@
     .hero-copy { text-align: left; }
     .hero-disc, .rosette-wrap { left: 60%; }
     .hero-disc { width: 400px; height: 400px; }
-    .seal { top: calc(50% + 112px); left: calc(60% - 32px); }
     .nav-links { display: none; }
     .menu-btn { display: grid; }
     .card-06-inner { grid-template-columns: 1fr; }
@@ -638,9 +641,8 @@
     .span-4, .span-3, .span-2 { grid-column: span 6; }
     .iter-grid, .use-layout { grid-template-columns: 1fr; gap: 40px; }
     section { padding: 64px 0; }
-    .example-card-inner { grid-template-columns: 1fr; }
-    .ex-visual { flex-direction: row; justify-content: flex-start; }
-    .chips { max-width: 260px; }
+    .ex-main { grid-template-columns: 1fr; gap: 20px; }
+    .ex-wall { max-width: 360px; }
   }
   @media (max-width: 560px) {
     .wrap { padding: 0 20px; }
@@ -649,9 +651,10 @@
     .rosette-wrap { width: 180px; height: 180px; }
     .hero-disc, .rosette-wrap { left: 66%; }
     .hero-disc { width: 320px; height: 320px; }
-    .seal { width: 52px; height: 52px; top: calc(50% + 86px); left: calc(66% - 26px); }
-    .seal svg { width: 24px; height: 24px; }
     .card { padding: 24px 22px; }
+    .example-card { padding: 22px 22px 0; }
+    .ex-foot { margin: 22px -22px 0; padding: 13px 22px; }
+    .ex-qa { letter-spacing: 0; }
     .nav-cta { width: 44px; padding: 0; justify-content: center; }
     .nav-cta span { display: none; }
     .nav-actions { gap: 6px; }
@@ -770,9 +773,6 @@
             <text x="192" y="121" fill="var(--muted)" font-size="12" font-weight="500">东</text>
           </g>
         </svg>
-      </div>
-      <div class="seal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
       </div>
     </div>
   </div>
@@ -1019,28 +1019,36 @@
       </div>
 
       <a class="example-card reveal" href="https://github.com/saudademjj/luopan/blob/main/examples/ili-10day-itinerary.md" target="_blank" rel="noopener">
-        <div class="example-card-inner">
-          <div>
-            <span class="tag">示例输出</span>
+        <div class="ex-head">
+          <span class="tag">示例输出</span>
+          <span class="ex-badge" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4">
+              <circle cx="32" cy="32" r="24"/>
+              <path d="M32 12l9 20-9 20-9-20z" stroke="none" fill="currentColor"/>
+            </svg>
+          </span>
+        </div>
+        <div class="ex-main">
+          <div class="ex-copy">
             <h3>伊犁 10 天自驾环线<br>含独库公路北段</h3>
             <p>完整示例输出,含规则自检表和数据来源索引。每条事实数据都能追溯。</p>
-            <span class="go">查看示例
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </span>
           </div>
-          <div class="ex-visual">
-            <span class="diamond" aria-hidden="true">
-              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4">
-                <circle cx="32" cy="32" r="24"/>
-                <path d="M32 12l9 20-9 20-9-20z" stroke="none" fill="currentColor"/>
-              </svg>
-            </span>
-            <div class="chips" aria-hidden="true">
-              <span>自检表 ✓</span>
-              <span>来源索引 ✓</span>
-              <span class="full">经济 / 舒适两档 ✓</span>
-            </div>
+          <div class="ex-wall" aria-hidden="true">
+            <span><i>01</i>逐日行程</span>
+            <span><i>02</i>预算两档</span>
+            <span><i>03</i>交通住宿</span>
+            <span><i>04</i>景点美食</span>
+            <span><i>05</i>确认清单</span>
+            <span><i>06</i>来源索引</span>
           </div>
+        </div>
+        <div class="ex-foot">
+          <span class="ex-qa">自检表 <b>✓</b></span>
+          <span class="ex-qa">来源索引 <b>✓</b></span>
+          <span class="ex-qa">经济 / 舒适两档 <b>✓</b></span>
+          <span class="go">查看示例
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
         </div>
       </a>
     </div>
